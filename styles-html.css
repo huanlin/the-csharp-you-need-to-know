@@ -18,6 +18,11 @@ body {
     text-align: left;
 }
 
+/* 右側章節目錄使用靠起始側對齊，避免折行文字因左右對齊而拉大字距。 */
+#quarto-margin-sidebar li {
+    text-align: start;
+}
+
 .language-switch {
     display: inline-flex;
     align-items: center;

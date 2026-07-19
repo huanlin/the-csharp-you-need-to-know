@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Chapter 1: Modern environment and fundamentals – The C# You Need to Know</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ch02/declarations-and-sugars.html" rel="next">
+<link href="../ch00/about-author.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-fdd2e7254fafafd8eace889b20274173.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles-html.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ch01/fundamentals.html"><span class="chapter-title">1 Modern environment and fundamentals</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The C# You Need to Know</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch00/about-book.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About this book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch00/about-author.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About the author</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch01/fundamentals.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1 Modern environment and fundamentals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch02/declarations-and-sugars.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">2 Declarations and syntactic sugar</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch03/null-safety.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3 Null safety</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch04/immutable-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4 Immutable design</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch05/error-handling-and-res-mgmt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5 Error handling and resource management</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch06/pattern-matching.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6 Pattern matching</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch07/generics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7 Generics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch08/delegates-and-lambda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8 Delegates and lambda expressions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch09/events-and-pubsub.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9 Events and the publish-subscribe pattern</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch10/linq-and-functional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10 LINQ and functional programming</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch11/extension-methods.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">11 Extension methods</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch12/async-programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12 Asynchronous programming</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch13/high-performance-memory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13 High-performance memory operations</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-design-philosophy" id="toc-the-design-philosophy" class="nav-link active" data-scroll-target="#the-design-philosophy">1.1 The design philosophy</a>
+  <ul class="collapse">
+  <li><a href="#type-safety-your-first-defense" id="toc-type-safety-your-first-defense" class="nav-link" data-scroll-target="#type-safety-your-first-defense">Type safety: your first defense</a></li>
+  </ul></li>
+  <li><a href="#sec-1-2" id="toc-sec-1-2" class="nav-link" data-scroll-target="#sec-1-2">1.2 Quick start</a>
+  <ul class="collapse">
+  <li><a href="#required-tools" id="toc-required-tools" class="nav-link" data-scroll-target="#required-tools">Required tools</a></li>
+  <li><a href="#your-first-.net-project" id="toc-your-first-.net-project" class="nav-link" data-scroll-target="#your-first-.net-project">Your first .NET project</a></li>
+  </ul></li>
+  <li><a href="#the-.net-runtime-architecture" id="toc-the-.net-runtime-architecture" class="nav-link" data-scroll-target="#the-.net-runtime-architecture">1.3 The .NET runtime architecture</a>
+  <ul class="collapse">
+  <li><a href="#cross-platform-support" id="toc-cross-platform-support" class="nav-link" data-scroll-target="#cross-platform-support">Cross-platform support</a></li>
+  </ul></li>
+  <li><a href="#stack-and-heap" id="toc-stack-and-heap" class="nav-link" data-scroll-target="#stack-and-heap">1.4 Stack and heap</a>
+  <ul class="collapse">
+  <li><a href="#the-stack" id="toc-the-stack" class="nav-link" data-scroll-target="#the-stack">The stack</a></li>
+  <li><a href="#the-heap" id="toc-the-heap" class="nav-link" data-scroll-target="#the-heap">The heap</a></li>
+  </ul></li>
+  <li><a href="#value-types-and-reference-types" id="toc-value-types-and-reference-types" class="nav-link" data-scroll-target="#value-types-and-reference-types">1.5 Value types and reference types</a>
+  <ul class="collapse">
+  <li><a href="#value-types" id="toc-value-types" class="nav-link" data-scroll-target="#value-types">Value types</a></li>
+  <li><a href="#reference-types" id="toc-reference-types" class="nav-link" data-scroll-target="#reference-types">Reference types</a></li>
+  <li><a href="#ask-ai-common-type-gotchas" id="toc-ask-ai-common-type-gotchas" class="nav-link" data-scroll-target="#ask-ai-common-type-gotchas">Ask AI: common type gotchas</a></li>
+  <li><a href="#array-layout-value-vs-reference-elements" id="toc-array-layout-value-vs-reference-elements" class="nav-link" data-scroll-target="#array-layout-value-vs-reference-elements">Array layout: value vs reference elements</a></li>
+  </ul></li>
+  <li><a href="#boxing-and-unboxing" id="toc-boxing-and-unboxing" class="nav-link" data-scroll-target="#boxing-and-unboxing">1.6 Boxing and unboxing</a>
+  <ul class="collapse">
+  <li><a href="#boxing" id="toc-boxing" class="nav-link" data-scroll-target="#boxing">Boxing</a></li>
+  <li><a href="#unboxing" id="toc-unboxing" class="nav-link" data-scroll-target="#unboxing">Unboxing</a></li>
+  <li><a href="#why-it-matters" id="toc-why-it-matters" class="nav-link" data-scroll-target="#why-it-matters">Why it matters</a></li>
+  </ul></li>
+  <li><a href="#copying-objects-and-arrays" id="toc-copying-objects-and-arrays" class="nav-link" data-scroll-target="#copying-objects-and-arrays">1.7 Copying objects and arrays</a>
+  <ul class="collapse">
+  <li><a href="#shallow-vs-deep-copy-for-objects" id="toc-shallow-vs-deep-copy-for-objects" class="nav-link" data-scroll-target="#shallow-vs-deep-copy-for-objects">Shallow vs deep copy for objects</a></li>
+  <li><a href="#shallow-vs-deep-copy-for-arrays" id="toc-shallow-vs-deep-copy-for-arrays" class="nav-link" data-scroll-target="#shallow-vs-deep-copy-for-arrays">Shallow vs deep copy for arrays</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary">Glossary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Chapter 1: Modern environment and fundamentals</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">May 3, 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/title.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%"></p>
+</figure>
+</div>
+<p>This chapter begins with the basic development environment, then explores the core mechanics of the .NET runtime and the C# type system. We won’t dwell on basic control flow like <code>if/else</code> statements and loops; instead, we’ll dive straight into the foundational concepts you’ll need for the more advanced C# features covered later in this book.</p>
+<section id="the-design-philosophy" class="level2">
+<h2 class="anchored" data-anchor-id="the-design-philosophy">1.1 The design philosophy</h2>
+<p>C# is fundamentally an <strong>object-oriented</strong> language that emphasizes encapsulation, inheritance, and polymorphism. However, starting with C# 3.0, it began incorporating many of the best ideas from <strong>functional programming</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Functional feature</th>
+<th style="text-align: left;">C# implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Functions as values</td>
+<td style="text-align: left;">Delegates and lambda expressions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Declarative data processing</td>
+<td style="text-align: left;">LINQ query expressions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Immutability</td>
+<td style="text-align: left;"><code>record</code>, <code>readonly struct</code>, <code>init</code> accessors</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pattern matching</td>
+<td style="text-align: left;"><code>switch</code> expressions, the <code>is</code> operator</td>
+</tr>
+</tbody>
+</table>
+<p>This exemplifies C#’s <strong>OOP + FP</strong> hybrid design, combining the organizational power of object-oriented programming with the declarative expressiveness of functional programming. Records, pattern matching, and LINQ all grow out of this philosophy.</p>
+<blockquote class="blockquote">
+<p><strong>Terminology</strong></p>
+<p>In programming languages, an <strong>expression</strong> is typically “a piece of code that can be evaluated and produces a value.” A <strong>statement</strong>, on the other hand, performs an action and usually does not directly produce a value.</p>
+</blockquote>
+<p>Let’s move on to the type system.</p>
+<section id="type-safety-your-first-defense" class="level3">
+<h3 class="anchored" data-anchor-id="type-safety-your-first-defense">Type safety: your first defense</h3>
+<p>C# is a <strong>strongly typed</strong> language with strict type rules:</p>
+<ul>
+<li><strong>Static typing</strong>: A variable’s type is determined at compile time, allowing the compiler to catch type errors before the program ever runs.</li>
+<li><strong>Strong typing</strong>: Risky implicit conversions are prohibited. For example, you can’t assign a <code>double</code> directly to an <code>int</code>; you must use an explicit cast.</li>
+</ul>
+<p>This helps you catch errors earlier and reduces the chance of runtime failures. Many modern C# features, such as Nullable Reference Types, further reinforce this safety net.</p>
+<p>The following code shows how C# blocks an implicit conversion that could lose information:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">// The compiler prevents this unsafe operation.</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="dt">double</span> pi <span class="op">=</span> <span class="fl">3.14159</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="dt">int</span> rounded <span class="op">=</span> pi<span class="op">;</span>  <span class="co">// ✗ Compile-time error: cannot implicitly convert</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="dt">int</span> rounded2 <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>pi<span class="op">;</span>  <span class="co">// ✓ Explicit cast; you're choosing to truncate</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In this example, the compiler is not forbidding the conversion outright; it requires you to make the potential loss of information explicit. That design keeps risky operations from happening quietly in your code.</p>
+<p>In other words: <strong>let the compiler help you reduce potential bugs</strong>. Type safety, null safety, pattern matching, and record-based value equality all reduce surprises at runtime.</p>
+</section>
+</section>
+<section id="sec-1-2" class="level2">
+<h2 class="anchored" data-anchor-id="sec-1-2">1.2 Quick start</h2>
+<p>This section walks you through creating a minimal .NET project and observing how it compiles and runs. We’ll start with the command-line interface (CLI) so you can understand the .NET project structure and build pipeline.</p>
+<section id="required-tools" class="level3">
+<h3 class="anchored" data-anchor-id="required-tools">Required tools</h3>
+<p>Before you begin, install the following:</p>
+<ol type="1">
+<li><a href="https://dotnet.microsoft.com/download/dotnet/">.NET 10 SDK (or later)</a>: required for building .NET applications.</li>
+<li>A development tool (IDE/editor). Pick what you’re comfortable with:
+<ul>
+<li>Visual Studio 2026 Community: The most powerful Windows IDE for large-scale and enterprise projects.</li>
+<li>Visual Studio Code: A cross-platform (Windows, macOS, Linux), lightweight, and highly extensible editor—perfect for fast editing and highly customized workflows.</li>
+<li>JetBrains Rider: A powerful cross-platform IDE (Windows, macOS, Linux); free for non-commercial use.</li>
+</ul></li>
+</ol>
+</section>
+<section id="your-first-.net-project" class="level3">
+<h3 class="anchored" data-anchor-id="your-first-.net-project">Your first .NET project</h3>
+<p>Forget <code>File &gt; New Project</code> for a moment. Open a terminal (the commands below use Windows as an example) and follow these steps:</p>
+<p><strong>Step 1:</strong> Create a console app</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dotnet</span> new console <span class="at">--name</span> HelloCSharp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This creates a C# console project named <code>HelloCSharp</code> from the default template. You’ll get a <code>Program.cs</code> file with a default entry point that contains just one line of code (excluding comments):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// See https://aka.ms/new-console-template for more information</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span><span class="st">"Hello, World!"</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Step 2:</strong> Enter the project directory</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> HelloCSharp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Step 3:</strong> Run the app</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dotnet</span> run</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When you run <code>dotnet run</code>, the .NET SDK automatically restores packages, builds the project, and then executes it. Next, you should see:</p>
+<pre class="text"><code>Hello, World!</code></pre>
+<p>Although you only typed two .NET CLI commands here, <code>dotnet new</code> and <code>dotnet run</code> (<code>cd</code> doesn’t count), the overall workflow still involves three stages:</p>
+<ul>
+<li><code>dotnet new</code>: Generates the project file (<code>.csproj</code>) and source file (<code>Program.cs</code>) from a template.</li>
+<li><code>dotnet build</code>: Compiles C# source into <strong>Intermediate Language (IL)</strong> and packages it into a <code>.dll</code> or <code>.exe</code>.</li>
+<li><code>dotnet run</code>: Starts the .NET runtime (Common Language Runtime, CLR) to execute the compiled program.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/compilation-pipeline.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%"></p>
+</figure>
+</div>
+<blockquote class="blockquote">
+<p><strong>What is IL (Intermediate Language)?</strong></p>
+<p>C# code isn’t compiled directly into machine code. Instead, it’s compiled into a platform-independent instruction set called IL. This allows the same compiled output to run seamlessly on Windows, macOS, Linux, and other platforms. At runtime, the .NET runtime (CLR) uses JIT (Just-In-Time) compilation to translate this IL into optimized native machine code for the host platform. For details, see the <a href="https://learn.microsoft.com/dotnet/standard/managed-code#intermediate-language--execution">Microsoft documentation</a>.</p>
+</blockquote>
+<p>If you’d like to try writing and running the example using an IDE, see Microsoft’s tutorial: <a href="https://learn.microsoft.com/dotnet/core/tutorials/with-visual-studio">Create a .NET console application using Visual Studio</a>.</p>
+<blockquote class="blockquote">
+<p><strong>Note</strong></p>
+<p>Modern C# projects typically enable <a href="https://learn.microsoft.com/dotnet/csharp/tutorials/top-level-statements">top-level statements</a>. That’s why <code>Program.cs</code> no longer contains the older <code>class Program</code> / <code>static void Main</code> boilerplate—you just write <code>Console.WriteLine("Hello, World!");</code> directly.</p>
+</blockquote>
+</section>
+</section>
+<section id="the-.net-runtime-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="the-.net-runtime-architecture">1.3 The .NET runtime architecture</h2>
+<p>When you type <code>dotnet run</code>, a sophisticated, layered system goes to work behind the scenes. .NET is designed to balance developer convenience with low-level performance control.</p>
+<p>At a high level, the .NET runtime environment consists of three primary layers:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 22%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Layer</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Responsibilities</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Top</td>
+<td style="text-align: left;"><strong>Application Layer</strong></td>
+<td style="text-align: left;">Application frameworks (ASP.NET, MAUI, WinUI, etc.)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Middle</td>
+<td style="text-align: left;"><strong>BCL</strong></td>
+<td style="text-align: left;">Base Class Library (collections, I/O, networking, cryptography, etc.)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bottom</td>
+<td style="text-align: left;"><strong>CLR</strong></td>
+<td style="text-align: left;">Common Language Runtime (memory management, JIT compilation, exception handling)</td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/dotnet-layers.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%"></p>
+</figure>
+</div>
+<p>The <strong>CLR (Common Language Runtime)</strong> is the heart of .NET. It’s responsible for:</p>
+<ul>
+<li>Compiling IL into machine code (JIT compilation)</li>
+<li>Automatic memory management (garbage collection)</li>
+<li>Type-safety checks</li>
+<li>Exception handling</li>
+</ul>
+<p>The <strong>BCL (Base Class Library)</strong> provides the essential building blocks you’ll use constantly:</p>
+<ul>
+<li>Collections (<code>List&lt;T&gt;</code>, <code>Dictionary&lt;TKey,TValue&gt;</code>)</li>
+<li>String processing and regular expressions</li>
+<li>File I/O and networking</li>
+<li>Asynchronous programming (<code>async</code>/<code>await</code>)</li>
+</ul>
+<p>The <strong>Application Layer</strong> contains higher-level frameworks for specific app types:</p>
+<ul>
+<li><strong>ASP.NET Core</strong>: web apps and APIs</li>
+<li><strong>MAUI</strong>: cross-platform mobile and desktop apps</li>
+<li><strong>WinUI / WPF</strong>: Windows desktop apps</li>
+</ul>
+<p>Once you understand these layers, it becomes easier to see why the same C# code can run in different environments.</p>
+<section id="cross-platform-support" class="level3">
+<h3 class="anchored" data-anchor-id="cross-platform-support">Cross-platform support</h3>
+<p>Modern .NET (starting with .NET 5) supports multiple platforms:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Platform</th>
+<th style="text-align: left;">Supported app types</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Windows</td>
+<td style="text-align: left;">Console, Web, desktop (WPF/WinUI), services</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">macOS</td>
+<td style="text-align: left;">Console, Web, desktop (Mac Catalyst)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Linux</td>
+<td style="text-align: left;">Console, Web, services</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">iOS / Android</td>
+<td style="text-align: left;">Mobile apps (via MAUI)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Browser</td>
+<td style="text-align: left;">WebAssembly (via Blazor)</td>
+</tr>
+</tbody>
+</table>
+<p>This means your C# code can run on any of these platforms, provided you avoid coupling it to platform-specific APIs.</p>
+<p>Beyond the execution environment, the next foundation that directly affects program behavior and performance is how memory is allocated.</p>
+</section>
+</section>
+<section id="stack-and-heap" class="level2">
+<h2 class="anchored" data-anchor-id="stack-and-heap">1.4 Stack and heap</h2>
+<p>Writing high-performance, bug-free code requires a solid understanding of memory allocation. The two foundational concepts here are the <strong>stack</strong> and the <strong>heap</strong>.</p>
+<p>An intuitive way to think about them:</p>
+<ul>
+<li><strong>The stack is like your physical workspace (your desk)</strong>:
+<ul>
+<li>Limited space, but extremely fast access.</li>
+<li>Used for the work you’re doing right now (method calls and local variables).</li>
+<li>When the work is done (the method returns), the desk is cleared instantly.</li>
+</ul></li>
+<li><strong>The heap is like a storage warehouse</strong>:
+<ul>
+<li>Very large, but slower to access.</li>
+<li>Used for long-lived data or large objects.</li>
+<li>When you’re done with an item, it doesn’t disappear immediately—it waits for the <em>cleanup crew</em> (the garbage collector) to reclaim it.</li>
+</ul></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/stack-vs-heap.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%"></p>
+</figure>
+</div>
+<p>Ultimately, both the stack and the heap are just regions of RAM. We give them different names because the runtime manages them differently.</p>
+<section id="the-stack" class="level3">
+<h3 class="anchored" data-anchor-id="the-stack">The stack</h3>
+<ul>
+<li><strong>Characteristics</strong>:
+<ul>
+<li><strong>Very fast</strong>: allocation and release are just pointer moves.</li>
+<li><strong>Deterministic</strong>: variables are released automatically when they leave scope.</li>
+<li><strong>Small</strong>: typically 1–4 MB depending on the platform and configuration; exhausting it causes <code>StackOverflowException</code>. The most common cause is infinite or excessively deep recursion.</li>
+</ul></li>
+<li><strong>What it stores</strong>:
+<ul>
+<li>Basic data for local variables.</li>
+<li>Method call context (parameters and call frames).</li>
+</ul></li>
+</ul>
+</section>
+<section id="the-heap" class="level3">
+<h3 class="anchored" data-anchor-id="the-heap">The heap</h3>
+<ul>
+<li><strong>Characteristics</strong>:
+<ul>
+<li><strong>Higher cost</strong>: allocation and deallocation cost more than they do on the stack; deallocation relies on the garbage collector (GC), which runs in periodic batches rather than reclaiming memory the instant an object is no longer needed. This deferral is intentional, because reclaiming memory immediately on every deallocation would introduce significant overhead.</li>
+<li><strong>Flexible</strong>: large space, suitable for long-lived or variably sized data.</li>
+</ul></li>
+<li><strong>What it stores</strong>:
+<ul>
+<li>Larger or longer-lived data, objects, and collections.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="value-types-and-reference-types" class="level2">
+<h2 class="anchored" data-anchor-id="value-types-and-reference-types">1.5 Value types and reference types</h2>
+<p>As mentioned earlier, C# programs run on top of the <strong>CLR (Common Language Runtime)</strong>. The CLR has many responsibilities, including memory management, exception handling, and enforcing safety mechanisms. You don’t need to master all the CLR internals right away. For now, just keep these two primary jobs in mind:</p>
+<ul>
+<li>Managing type information</li>
+<li>Allocating and reclaiming memory (garbage collection)</li>
+</ul>
+<p>When allocating memory, the CLR decides how data is laid out based on type characteristics, usage patterns, and runtime optimizations. Whether a type is a <strong>value type</strong> or a <strong>reference type</strong> is an important part of the story, but it is not the only factor that determines whether data ends up on the stack or the heap.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/the-type-system.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%"></p>
+</figure>
+</div>
+<section id="value-types" class="level3">
+<h3 class="anchored" data-anchor-id="value-types">Value types</h3>
+<p>Value types include:</p>
+<ul>
+<li>All numeric types (<code>int</code>, <code>double</code>, <code>byte</code>, <code>decimal</code>, …)</li>
+<li><code>bool</code>, <code>char</code></li>
+<li><code>enum</code></li>
+<li><code>struct</code> (including <code>DateTime</code>, <code>Guid</code>, <code>Span&lt;T&gt;</code>)</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> <code>Span&lt;T&gt;</code> is a <code>ref struct</code>. This is a special <strong>stack-only</strong> struct: the <code>Span&lt;T&gt;</code> value itself cannot escape to the heap, so it cannot be boxed or used as a field in a <code>class</code>. However, the data it represents is not necessarily on the stack; it may refer to a slice of a heap array or to other memory regions. See Section 13.2 of Chapter 13 “High-performance memory operations” for details.</p>
+</blockquote>
+<p>Behavioral characteristics:</p>
+<ul>
+<li>They <strong>contain the data directly</strong>.</li>
+<li>Assigning one to another variable <strong>copies the entire value</strong> (copy by value).</li>
+</ul>
+<p>Think of it like photocopying a physical document. If you hand a copy to a coworker (assignment), and they write on their copy (mutating their variable), your original document remains unaltered.</p>
+<p>The following example demonstrates this value-type behavior: assignment copies the value itself.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb7-1"><a href="#cb7-1"></a><span class="dt">int</span> a <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="dt">int</span> b <span class="op">=</span> a<span class="op">;</span>  <span class="co">// Copies 10 into b</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>b <span class="op">=</span> <span class="dv">99</span><span class="op">;</span>     <span class="co">// Changing b does not affect a</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>a<span class="op">);</span> <span class="co">// Prints 10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Line 3 changes <code>b</code>, but <code>a</code> remains unchanged because <code>int</code> is a value type.</p>
+<blockquote class="blockquote">
+<p><strong>Source code:</strong> <a href="https://github.com/huanlin/csharp-book-support/tree/master/example-code-en/ch01/DemoValueTypes">DemoValueTypes</a></p>
+</blockquote>
+</section>
+<section id="reference-types" class="level3">
+<h3 class="anchored" data-anchor-id="reference-types">Reference types</h3>
+<p>Reference types include:</p>
+<ul>
+<li><code>class</code> (including <code>string</code>, <code>object</code>, and arrays such as <code>int[]</code>)</li>
+<li><code>interface</code></li>
+<li><code>delegate</code> (delegates and lambdas are covered in Chapter 8, and events in Chapter 9)</li>
+<li><code>record</code> (a reference type by default; see Chapter 4)</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Note</strong></p>
+<p>Although <code>string</code> is a reference type, it is immutable, so in practice it often behaves similarly to a value type. In terms of type classification, however, it is still a reference type.</p>
+</blockquote>
+<p>Behavioral characteristics:</p>
+<ul>
+<li>They store a <strong>reference</strong> (a memory address) that points to an object on the heap.</li>
+<li>Assigning one to another variable copies only the <strong>reference</strong>, resulting in both variables pointing to the same object.</li>
+</ul>
+<p>It’s like sharing a link to a cloud document. You send your coworker the link (assignment). Both of you hold a copy of the link (the reference), and both copies point to the exact same online document (the object). If your coworker edits the document through their link, you’ll instantly see those changes.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/copy-by-address.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%"></p>
+</figure>
+</div>
+<p>With reference types, assignment behaves differently. In the following example, <code>user2</code> receives a reference to the same object:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb8-1"><a href="#cb8-1"></a><span class="dt">var</span> user1 <span class="op">=</span> <span class="kw">new</span> User <span class="op">{</span> Name <span class="op">=</span> <span class="st">"Alice"</span> <span class="op">};</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="dt">var</span> user2 <span class="op">=</span> user1<span class="op">;</span>   <span class="co">// Copies the reference; user1 and user2 point to the same object</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>user2<span class="op">.</span><span class="fu">Name</span> <span class="op">=</span> <span class="st">"Bob"</span><span class="op">;</span>  <span class="co">// Changing user2 affects user1</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>user1<span class="op">.</span><span class="fu">Name</span><span class="op">);</span> <span class="co">// Prints Bob</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Therefore, when you modify <code>Name</code> through <code>user2</code>, <code>user1</code> sees the modified state of that same object.</p>
+<blockquote class="blockquote">
+<p><strong>Source code:</strong> <a href="https://github.com/huanlin/csharp-book-support/tree/master/example-code-en/ch01/DemoReferenceTypes">DemoReferenceTypes</a></p>
+</blockquote>
+</section>
+<section id="ask-ai-common-type-gotchas" class="level3">
+<h3 class="anchored" data-anchor-id="ask-ai-common-type-gotchas">Ask AI: common type gotchas</h3>
+<p>Many subtle bugs stem from misunderstandings about these type categories, which is also why technical interviewers love this topic. Try running the following prompt through your AI assistant to check your understanding:</p>
+<blockquote class="blockquote">
+<p><strong>Prompt</strong></p>
+<p>In C#, is <code>int[]</code> (an array of integers) a value type or a reference type? If it’s a reference type, but it contains <code>int</code> elements (value types), where are those <code>int</code> values stored—on the stack or on the heap? Explain the underlying memory layout.</p>
+</blockquote>
+<p>Depending on the AI tool you use, answers may vary slightly. Here’s a simplified example answer:</p>
+<blockquote class="blockquote">
+<p><strong>AI Answer</strong></p>
+<p><code>int[]</code> is an array, and arrays are <strong>reference types</strong>. Therefore, the entire array object (including all its <code>int</code> elements) is stored on the <strong>heap</strong>, even though <code>int</code> itself is a value type.</p>
+</blockquote>
+</section>
+<section id="array-layout-value-vs-reference-elements" class="level3">
+<h3 class="anchored" data-anchor-id="array-layout-value-vs-reference-elements">Array layout: value vs reference elements</h3>
+<p>Many developers assume that an array is <em>always</em> a contiguous block of memory, but this is only partially true.</p>
+<p>The underlying memory layout depends heavily on whether the element type is a <strong>value type</strong> or a <strong>reference type</strong>. This difference can affect performance (CPU cache locality) and garbage collection (GC) pressure. Next, let’s look at both cases from a memory-allocation perspective.</p>
+<section id="arrays-of-value-type-elements" class="level4">
+<h4 class="anchored" data-anchor-id="arrays-of-value-type-elements">Arrays of value-type elements</h4>
+<p>Consider this example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb9-1"><a href="#cb9-1"></a><span class="dt">long</span><span class="op">[]</span> numbers <span class="op">=</span> <span class="kw">new</span> <span class="dt">long</span><span class="op">[</span><span class="dv">3</span><span class="op">];</span> <span class="co">// Each long is 8 bytes</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>numbers<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="dv">12345</span><span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>numbers<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> <span class="dv">54321</span><span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>numbers<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="dv">99999</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On the heap, the CLR allocates a single, <strong>contiguous</strong> block of memory. The three <code>long</code> values are stored directly within the array’s memory footprint. Concretely:</p>
+<ul>
+<li><strong>Array header</strong>: Includes metadata such as the array length.</li>
+<li><strong>Contents</strong>: Stores the raw values (like <code>12345</code>) packed tightly.</li>
+<li><strong>Result</strong>: One allocation; data is dense and cache-friendly.</li>
+</ul>
+<p>An analogy: A row of gym lockers. You open locker #0, and your item (the value) is right there. Open locker #1, and the next item is immediately next to it.</p>
+</section>
+<section id="arrays-of-reference-type-elements" class="level4">
+<h4 class="anchored" data-anchor-id="arrays-of-reference-type-elements">Arrays of reference-type elements</h4>
+<p>Next, consider an array whose element type is <code>StringBuilder</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb10-1"><a href="#cb10-1"></a>StringBuilder<span class="op">[]</span> builders <span class="op">=</span> <span class="kw">new</span> StringBuilder<span class="op">[</span><span class="dv">3</span><span class="op">];</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>builders<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span><span class="st">"builder1"</span><span class="op">);</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>builders<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span><span class="st">"builder2"</span><span class="op">);</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>builders<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span><span class="st">"builder3"</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In this scenario, the array stores <em>references</em>, not the actual string data:</p>
+<ul>
+<li><strong>Array header</strong>: Includes metadata such as length.</li>
+<li><strong>Contents</strong>: Stores references (addresses) to <code>StringBuilder</code> objects.</li>
+<li><strong>Actual objects</strong>: Allocated separately and scattered on the heap.</li>
+<li><strong>Result</strong>: Multiple allocations (one for the array + one for each object), poorer locality, and higher access cost.</li>
+</ul>
+<p>An analogy: A row of post office boxes. Box #0 contains a slip (a reference) saying, “Your package is in warehouse section B, shelf 3.” You then have to walk to the warehouse (somewhere else on the heap) to retrieve the actual package (the object). If each slip points to a completely different corner of the warehouse, you’ll waste significant time walking back and forth.</p>
+<p>This leads to two important effects:</p>
+<ol type="1">
+<li><strong>Locality</strong>: value-type arrays store elements contiguously, so CPU cache hit rates tend to be higher.</li>
+<li><strong>GC pressure</strong>: reference-type arrays often create many scattered objects, increasing garbage collector work.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/array-alloc.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<blockquote class="blockquote">
+<p><strong>Key takeaways for this section:</strong></p>
+<ul>
+<li>Whether you’re using a value type or a reference type, data still has to live somewhere in memory.</li>
+<li>Call-related data and many locals are often represented in a stack frame or in registers, but that is ultimately a runtime/JIT implementation detail.</li>
+<li>The key property of a value type is that it stores its data directly; that data may appear in a local, inside a heap object, or inside an array element.</li>
+<li>A reference-type variable stores a reference; the object it points to is typically allocated on the heap.</li>
+</ul>
+</blockquote>
+</section>
+</section>
+</section>
+<section id="boxing-and-unboxing" class="level2">
+<h2 class="anchored" data-anchor-id="boxing-and-unboxing">1.6 Boxing and unboxing</h2>
+<p>Boxing and unboxing are mechanisms that allow value types to be treated as objects, but they come with additional performance costs.</p>
+<section id="boxing" class="level3">
+<h3 class="anchored" data-anchor-id="boxing">Boxing</h3>
+<p>Boxing is the process of converting a <strong>value type</strong> into an <code>object</code> (a <strong>reference type</strong>).</p>
+<p>Imagine picking an apple (a value type). Normally, you use it directly as a raw value. But if you now want to treat it as a general-purpose object stored in a warehouse (the heap), you must place it inside a physical <strong>box</strong> (boxing) and slap a tracking label on it. Procuring the box and packing the item introduces overhead.</p>
+<p>During boxing, the CLR allocates memory on the heap and copies the value-type data into it. This is necessary because <code>object</code> is a reference type that requires a heap address, whereas a value type like <code>int</code> has no heap address on its own. Boxing creates a heap-allocated wrapper so the value can participate in reference-type semantics.</p>
+<p>First, here is a minimal boxing example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb11-1"><a href="#cb11-1"></a><span class="dt">int</span> i <span class="op">=</span> <span class="dv">123</span><span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="dt">object</span> o <span class="op">=</span> i<span class="op">;</span> <span class="co">// Boxing: wraps the int in a heap-allocated object</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Here, <code>o</code> is a reference that points to a newly created boxed <code>int</code> object on the heap.</p>
+</section>
+<section id="unboxing" class="level3">
+<h3 class="anchored" data-anchor-id="unboxing">Unboxing</h3>
+<p>Unboxing is the reverse process: converting an <code>object</code> back into a <strong>value type</strong>.</p>
+<p>Unboxing involves verifying that the object contains the expected value type, then copying the value from the heap back to the stack.</p>
+<p>When unboxing, you must explicitly specify the value type you want to retrieve:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> j <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>o<span class="op">;</span> <span class="co">// Unboxing</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If <code>o</code> does not actually contain an <code>int</code>, this line throws an exception at runtime.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/boxing-unboxing.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%"></p>
+</figure>
+</div>
+</section>
+<section id="why-it-matters" class="level3">
+<h3 class="anchored" data-anchor-id="why-it-matters">Why it matters</h3>
+<p>Boxing has two main costs:</p>
+<ol type="1">
+<li><strong>CPU work</strong>: Copying data and allocating memory.</li>
+<li><strong>GC pressure</strong>: Boxing creates extra heap objects, giving the garbage collector more work.</li>
+</ol>
+<p>Hidden boxing traps often occur when using older, non-generic collections (like <code>ArrayList</code>) or certain string formatting methods. Because <code>ArrayList</code> stores every element as <code>object</code>, adding a value type automatically triggers boxing. Here’s a common example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb13-1"><a href="#cb13-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="co">// Trap: string.Format takes object parameters</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="dt">string</span> s <span class="op">=</span> <span class="dt">string</span><span class="op">.</span><span class="fu">Format</span><span class="op">(</span><span class="st">"Score: {0}"</span><span class="op">,</span> x<span class="op">);</span> <span class="co">// x gets boxed!</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co">// Modern approach: string interpolation (often optimized by the compiler)</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="dt">string</span> s2 <span class="op">=</span> $<span class="st">"Score: {x}"</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>Source code:</strong> <a href="https://github.com/huanlin/csharp-book-support/tree/master/example-code-en/ch01/DemoBoxingUnboxing">DemoBoxingUnboxing</a></p>
+</blockquote>
+<p>Whether string interpolation causes boxing depends heavily on your compiler version and the specific code. In modern C# and .NET, interpolating value types (like <code>int</code>) is highly optimized and typically avoids falling back to the boxing <code>string.Format(object, ...)</code> path, though you may still incur string allocations.</p>
+<p>If you have heavy string formatting on a performance-critical hot path, more reliable optimization approaches include:</p>
+<ul>
+<li>Avoid APIs that primarily take <code>object</code> parameters (for example, some <code>params object[]</code> overloads).</li>
+<li>Prefer formatting APIs that can write into buffers, such as <code>TryFormat</code> with <code>Span&lt;char&gt;</code>, to reduce temporary string allocations (see Chapter 13).</li>
+<li>For collections, prefer <strong>generic</strong> collections—for example, use <code>List&lt;int&gt;</code> instead of <code>ArrayList</code>.</li>
+</ul>
+<blockquote class="blockquote">
+<ul>
+<li>String interpolation is introduced in Chapter 2 (Section 2.7).</li>
+<li>Generics are covered in Chapter 9.</li>
+</ul>
+</blockquote>
+</section>
+</section>
+<section id="copying-objects-and-arrays" class="level2">
+<h2 class="anchored" data-anchor-id="copying-objects-and-arrays">1.7 Copying objects and arrays</h2>
+<p>When copying objects or arrays, it’s crucial to understand the difference between a <strong>shallow copy</strong> and a <strong>deep copy</strong>. C# does not provide a universal built-in deep-copy mechanism. Because this topic is closely tied to value and reference types, it is an important part of understanding memory behavior.</p>
+<section id="shallow-vs-deep-copy-for-objects" class="level3">
+<h3 class="anchored" data-anchor-id="shallow-vs-deep-copy-for-objects">Shallow vs deep copy for objects</h3>
+<p>A <strong>shallow copy</strong> copies only the top-level object itself. If that object contains reference-type fields, those fields will still point to the exact same inner objects:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">class</span> Team</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="op">{</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>    <span class="kw">public</span> <span class="dt">string</span> Name <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span> <span class="op">=</span> <span class="dt">string</span><span class="op">.</span><span class="fu">Empty</span><span class="op">;</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>    <span class="kw">public</span> List<span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;</span> Members <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span> <span class="op">=</span> <span class="kw">new</span><span class="op">();</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a></span>
+<span id="cb14-6"><a href="#cb14-6"></a>    <span class="co">// Uses object.MemberwiseClone() to copy members one by one (shallow copy)</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a>    <span class="kw">public</span> Team <span class="fu">ShallowCopy</span><span class="op">()</span> <span class="op">=&gt;</span> <span class="op">(</span>Team<span class="op">)</span><span class="fu">MemberwiseClone</span><span class="op">();</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="op">}</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a></span>
+<span id="cb14-10"><a href="#cb14-10"></a><span class="dt">var</span> team1 <span class="op">=</span> <span class="kw">new</span> Team</span>
+<span id="cb14-11"><a href="#cb14-11"></a><span class="op">{</span></span>
+<span id="cb14-12"><a href="#cb14-12"></a>    Name <span class="op">=</span> <span class="st">"Dev"</span><span class="op">,</span></span>
+<span id="cb14-13"><a href="#cb14-13"></a>    Members <span class="op">=</span> <span class="kw">new</span> List<span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;</span> <span class="op">{</span> <span class="st">"Alice"</span><span class="op">,</span> <span class="st">"Bob"</span> <span class="op">}</span></span>
+<span id="cb14-14"><a href="#cb14-14"></a><span class="op">};</span></span>
+<span id="cb14-15"><a href="#cb14-15"></a></span>
+<span id="cb14-16"><a href="#cb14-16"></a><span class="dt">var</span> team2 <span class="op">=</span> team1<span class="op">.</span><span class="fu">ShallowCopy</span><span class="op">();</span> <span class="co">// Shallow copy</span></span>
+<span id="cb14-17"><a href="#cb14-17"></a>team2<span class="op">.</span><span class="fu">Name</span> <span class="op">=</span> <span class="st">"QA"</span><span class="op">;</span>               <span class="co">// team2 has its own Name value</span></span>
+<span id="cb14-18"><a href="#cb14-18"></a>team2<span class="op">.</span><span class="fu">Members</span><span class="op">.</span><span class="fu">Add</span><span class="op">(</span><span class="st">"Charlie"</span><span class="op">);</span>    <span class="co">// But Members still points to the same List!</span></span>
+<span id="cb14-19"><a href="#cb14-19"></a></span>
+<span id="cb14-20"><a href="#cb14-20"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>team1<span class="op">.</span><span class="fu">Members</span><span class="op">.</span><span class="fu">Count</span><span class="op">);</span> <span class="co">// Prints 3 (affected!)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This demonstrates a classic shallow-copy bug: the internal <code>List</code> is not duplicated; only the reference to it is. As a result, adding an element to <code>team2.Members</code> inadvertently mutates <code>team1.Members</code>.</p>
+<blockquote class="blockquote">
+<p><strong>Source code:</strong> <a href="https://github.com/huanlin/csharp-book-support/tree/master/example-code-en/ch01/DemoShallowCopy">DemoShallowCopy</a></p>
+</blockquote>
+<p>Early .NET versions introduced the <code>ICloneable</code> interface as the standard approach for object copying. However, its major flaw is semantic ambiguity: <code>Clone()</code> never clarifies whether it returns a shallow or a deep copy. When calling a third-party <code>Clone()</code> method, you have to dig through documentation to find out what it actually does.</p>
+<p>Because of this, even though <code>ICloneable</code> is not formally obsolete, it is usually a poor choice for a public cloning contract. In practice, if a type should expose copying behavior, it is better to use explicitly named methods such as <code>ShallowCopy()</code> or <code>DeepCopy()</code>, as shown earlier.</p>
+<blockquote class="blockquote">
+<p><strong>Note</strong></p>
+<p>Other ways to copy objects include a <strong>copy constructor</strong>, or using <code>record</code> types with the <code>with</code> expression for non-destructive mutation (see Chapter 4). Keep in mind that <code>with</code> is still a <strong>shallow copy</strong> by default; nested mutable reference-type members remain shared unless you copy them explicitly.</p>
+</blockquote>
+<p>To provide a deep copy, you must explicitly decide which members need new instances. The following example uses a <strong>copy constructor</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">class</span> Team</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="op">{</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>    <span class="kw">public</span> <span class="dt">string</span> Name <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>    <span class="kw">public</span> List<span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;</span> Members <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a></span>
+<span id="cb15-6"><a href="#cb15-6"></a>    <span class="kw">public</span> <span class="fu">Team</span><span class="op">()</span> <span class="op">{</span> <span class="op">}</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a>    <span class="kw">public</span> <span class="fu">Team</span><span class="op">(</span>Team original<span class="op">)</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>    <span class="op">{</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a>        <span class="co">// A string reference can be reused safely.</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a>        Name <span class="op">=</span> original<span class="op">.</span><span class="fu">Name</span><span class="op">;</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a></span>
+<span id="cb15-13"><a href="#cb15-13"></a>        <span class="co">// Create a new List to avoid sharing the</span></span>
+<span id="cb15-14"><a href="#cb15-14"></a>        <span class="co">// same Members collection with the original object.</span></span>
+<span id="cb15-15"><a href="#cb15-15"></a>        Members <span class="op">=</span> <span class="kw">new</span> List<span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;(</span>original<span class="op">.</span><span class="fu">Members</span><span class="op">);</span></span>
+<span id="cb15-16"><a href="#cb15-16"></a>    <span class="op">}</span></span>
+<span id="cb15-17"><a href="#cb15-17"></a><span class="op">}</span></span>
+<span id="cb15-18"><a href="#cb15-18"></a></span>
+<span id="cb15-19"><a href="#cb15-19"></a><span class="dt">var</span> team1 <span class="op">=</span> <span class="kw">new</span> Team</span>
+<span id="cb15-20"><a href="#cb15-20"></a><span class="op">{</span></span>
+<span id="cb15-21"><a href="#cb15-21"></a>    Name <span class="op">=</span> <span class="st">"Dev"</span><span class="op">,</span></span>
+<span id="cb15-22"><a href="#cb15-22"></a>    Members <span class="op">=</span> <span class="kw">new</span> List<span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;</span> <span class="op">{</span> <span class="st">"Alice"</span><span class="op">,</span> <span class="st">"Bob"</span> <span class="op">}</span></span>
+<span id="cb15-23"><a href="#cb15-23"></a><span class="op">};</span></span>
+<span id="cb15-24"><a href="#cb15-24"></a></span>
+<span id="cb15-25"><a href="#cb15-25"></a><span class="dt">var</span> team2 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Team</span><span class="op">(</span>team1<span class="op">);</span>  <span class="co">// Create a copy via the copy constructor</span></span>
+<span id="cb15-26"><a href="#cb15-26"></a>team2<span class="op">.</span><span class="fu">Members</span><span class="op">.</span><span class="fu">Add</span><span class="op">(</span><span class="st">"Charlie"</span><span class="op">);</span></span>
+<span id="cb15-27"><a href="#cb15-27"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>team1<span class="op">.</span><span class="fu">Members</span><span class="op">.</span><span class="fu">Count</span><span class="op">);</span> <span class="co">// Prints 2 (team1 unaffected)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The following line creates a new <code>List</code> so the copy does not share the same <code>Members</code> collection as the original:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb16-1"><a href="#cb16-1"></a>Members <span class="op">=</span> <span class="kw">new</span> List<span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;(</span>original<span class="op">.</span><span class="fu">Members</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Because the elements are immutable <code>string</code> instances, copying their references is sufficient; there is no need to duplicate the string objects themselves.</p>
+<p>In this example:</p>
+<ul>
+<li>The <code>Name</code> property is copied by reference (a shallow copy), which is perfectly safe because <code>string</code> is <strong>immutable</strong>. Even though strings might <em>appear</em> mutable, operations like <code>Replace</code> and <code>ToUpper</code> actually allocate <strong>new</strong> string objects rather than modifying the original data.</li>
+<li><code>Members</code> is a <code>List&lt;string&gt;</code>, which is mutable. To avoid sharing the same list, you must create a new list instance.</li>
+<li>While not mandated by the language, copy constructors are a widely accepted practice. Their intent may seem less explicit than a method named <code>DeepCopy()</code>, but they offer strong typing and align well with modern .NET design. In fact, C# 9 <code>record</code> types inherently rely on compiler-generated copy constructors.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Source code:</strong> <a href="https://github.com/huanlin/csharp-book-support/tree/master/example-code-en/ch01/DemoDeepCopy">DemoDeepCopy</a></p>
+</blockquote>
+<p>Note that <code>new List&lt;string&gt;(original.Members)</code> creates a new list container. Because the elements are immutable <code>string</code> values, that alone is enough to achieve the isolation this example needs. If the list contained mutable reference-type elements instead, for example, <code>List&lt;Person&gt;</code>, then <code>new List&lt;Person&gt;(original.Members)</code> would copy only the container, while every <code>Person</code> reference inside would still point to the original objects. In that case, you’d need to copy each <code>Person</code> individually to achieve true isolation.</p>
+<p>As a general rule, if an object graph contains <strong>nested, mutable reference types</strong> (for example, a <code>Team</code> contains a <code>Manager</code>, which in turn references other objects), a true deep copy requires recursively creating new instances at every level. In practice, developers often use serialization and deserialization (e.g., via <code>System.Text.Json</code>) or third-party mapping libraries to automate complex deep copies.</p>
+<blockquote class="blockquote">
+<p><strong>Note</strong></p>
+<p>For more on immutability, see “Chapter 4: Immutable design.”</p>
+</blockquote>
+<p>Here’s a summary of common object-copy approaches:</p>
+<ul>
+<li><strong>Implement <code>ICloneable.Clone()</code></strong>: not obsolete, but usually not recommended as a public API. Downsides: ambiguous semantics and lack of strong typing (it returns <code>object</code>).</li>
+<li><strong>Provide a copy constructor</strong>: allows you to precisely control the copy logic and preserves strong typing. Downside: can become highly verbose for types with many members.</li>
+<li><strong><code>record</code> + <code>with</code> expression</strong>: offers clean, concise syntax and works well for immutable data and non-destructive mutation, but it is not a general-purpose deep-copy mechanism (see Chapter 4).</li>
+<li><strong>Serialization</strong>: the simplest workaround for deep copies, but usually much slower and typically ignores private members.</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Ask AI</strong></p>
+<p>I want to understand the pros and cons of these object-copy approaches in .NET: ICloneable, record (with), copy constructors, and serialization. Please summarize them in a comparison table.</p>
+<p>Then, implement deep copy using .NET’s built-in <code>System.Text.Json</code>.</p>
+</blockquote>
+</section>
+<section id="shallow-vs-deep-copy-for-arrays" class="level3">
+<h3 class="anchored" data-anchor-id="shallow-vs-deep-copy-for-arrays">Shallow vs deep copy for arrays</h3>
+<p>Array copying follows the same principle as object copying: <code>Array.Clone()</code> performs a <strong>shallow copy</strong>.</p>
+<p>If the array element type itself <strong>does not contain mutable reference state</strong>, such as <code>int</code> or <code>string</code>, a shallow copy is often enough. The following example copies an <code>int[]</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb17-1"><a href="#cb17-1"></a><span class="dt">int</span><span class="op">[]</span> original <span class="op">=</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span> <span class="op">};</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="dt">int</span><span class="op">[]</span> copy <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">[])</span>original<span class="op">.</span><span class="fu">Clone</span><span class="op">();</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>copy<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="dv">999</span><span class="op">;</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>original<span class="op">[</span><span class="dv">0</span><span class="op">]);</span> <span class="co">// Prints 1 (unaffected)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Be careful, though: this works because <code>int</code> is just the value itself. If the array element type is a <code>struct</code> that contains reference-type fields, <code>Array.Clone()</code> still performs only a shallow copy of those inner references, so it does not automatically give you full isolation.</p>
+<p>If the array elements are reference types, be careful:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb18-1"><a href="#cb18-1"></a><span class="dt">var</span> original <span class="op">=</span> <span class="kw">new</span> StringBuilder<span class="op">[]</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="op">{</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>    <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span><span class="st">"A"</span><span class="op">),</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a>    <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span><span class="st">"B"</span><span class="op">)</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="op">};</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a><span class="dt">var</span> copy <span class="op">=</span> <span class="op">(</span>StringBuilder<span class="op">[])</span>original<span class="op">.</span><span class="fu">Clone</span><span class="op">();</span></span>
+<span id="cb18-7"><a href="#cb18-7"></a>copy<span class="op">[</span><span class="dv">0</span><span class="op">].</span><span class="fu">Append</span><span class="op">(</span><span class="st">"!"</span><span class="op">);</span> <span class="co">// Mutating copy also mutates original!</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>original<span class="op">[</span><span class="dv">0</span><span class="op">]);</span> <span class="co">// Prints "A!" (affected!)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The output is <code>A!</code>. Although <code>Array.Clone()</code> creates a new array object, the elements inside still point to the same <code>StringBuilder</code> objects as <code>original</code>, so mutating <code>copy[0]</code> also affects <code>original[0]</code>.</p>
+<p>To create a <strong>deep copy</strong>, you must copy each element individually:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb19-1"><a href="#cb19-1"></a><span class="dt">var</span> original <span class="op">=</span> <span class="kw">new</span> StringBuilder<span class="op">[]</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="op">{</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>    <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span><span class="st">"A"</span><span class="op">),</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a>    <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span><span class="st">"B"</span><span class="op">)</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="op">};</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a></span>
+<span id="cb19-7"><a href="#cb19-7"></a><span class="dt">var</span> deepCopy <span class="op">=</span> <span class="kw">new</span> StringBuilder<span class="op">[</span>original<span class="op">.</span><span class="fu">Length</span><span class="op">];</span></span>
+<span id="cb19-8"><a href="#cb19-8"></a><span class="kw">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> original<span class="op">.</span><span class="fu">Length</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb19-9"><a href="#cb19-9"></a><span class="op">{</span></span>
+<span id="cb19-10"><a href="#cb19-10"></a>    deepCopy<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span>original<span class="op">[</span>i<span class="op">].</span><span class="fu">ToString</span><span class="op">());</span></span>
+<span id="cb19-11"><a href="#cb19-11"></a><span class="op">}</span></span>
+<span id="cb19-12"><a href="#cb19-12"></a>deepCopy<span class="op">[</span><span class="dv">0</span><span class="op">].</span><span class="fu">Append</span><span class="op">(</span><span class="st">"!"</span><span class="op">);</span></span>
+<span id="cb19-13"><a href="#cb19-13"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>original<span class="op">[</span><span class="dv">0</span><span class="op">]);</span> <span class="co">// Prints "A" (unaffected)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This time the output is <code>A</code>, showing that <code>deepCopy</code> and <code>original</code> are two independent arrays.</p>
+<blockquote class="blockquote">
+<p><strong>Source code:</strong> <a href="https://github.com/huanlin/csharp-book-support/tree/master/example-code-en/ch01/DemoDeepCopyArray">DemoDeepCopyArray</a></p>
+</blockquote>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<ul>
+<li><strong>C# design philosophy</strong>: An OOP + FP hybrid with strong type safety that lets the compiler help prevent potential bugs.</li>
+<li><strong>Execution model</strong>: Source code compiles to <strong>IL</strong> (Intermediate Language). At runtime, the <strong>CLR</strong> uses <strong>JIT</strong> compilation to generate native machine code while simultaneously managing memory via garbage collection (GC).</li>
+<li><strong>Stack vs heap</strong>: The <strong>stack</strong> is fast but limited (mostly locals); the <strong>heap</strong> is large but GC-managed (object instances).</li>
+<li><strong>Value types vs reference types</strong>: Value types contain data directly, while reference types store references to objects; you can think of a reference as a memory address that points to an object.</li>
+<li><strong>Array memory characteristics</strong>: Value-type arrays allocate elements contiguously (excellent cache locality); reference-type arrays store scattered references (can lead to increased GC pressure).</li>
+<li><strong>Boxing/unboxing</strong>: Boxing converts a value type to <code>object</code>; unboxing extracts the boxed value back to its original value type. Both can introduce extra cost.</li>
+<li><strong>Object copying</strong>: C# provides shallow copy only; deep copy requires manual work or serialization (for example, <code>System.Text.Json</code>).</li>
+</ul>
+</section>
+<section id="glossary" class="level2">
+<h2 class="anchored" data-anchor-id="glossary">Glossary</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Term</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BCL</td>
+<td style="text-align: left;">Base Class Library; collections, I/O, networking, and other fundamental APIs</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Boxing</td>
+<td style="text-align: left;">Converting a value type into an <code>object</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CLI (command line interface)</td>
+<td style="text-align: left;">A text-based interface for interacting with the computer</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CLR</td>
+<td style="text-align: left;">Executes .NET code; provides JIT compilation and memory management</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GC (garbage collector)</td>
+<td style="text-align: left;">Automatically manages and reclaims heap memory</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Heap</td>
+<td style="text-align: left;">Memory region where objects live; managed by the GC</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IL (intermediate language)</td>
+<td style="text-align: left;">Platform-independent compiled output for .NET languages</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Immutable</td>
+<td style="text-align: left;">Cannot be changed after creation (for example, <code>string</code>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">JIT (Just-In-Time compilation)</td>
+<td style="text-align: left;">Compiles IL to machine code at runtime</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reference type</td>
+<td style="text-align: left;">Stores a reference/address to an object (for example, <code>class</code>, <code>string</code>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Stack</td>
+<td style="text-align: left;">Fast, limited memory region used for locals and call frames</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://learn.microsoft.com/dotnet/csharp/tutorials/top-level-statements">Top-level statements</a></td>
+<td style="text-align: left;">Write statements without explicitly defining a <code>Program</code> class</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Unboxing</td>
+<td style="text-align: left;">Converting an <code>object</code> back into a value type</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Value type</td>
+<td style="text-align: left;">Stores data directly (for example, <code>int</code>, <code>struct</code>)</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+
+(() => {
+
+  const path = window.location.pathname;
+
+  const match = path.match(/\/(zh-tw|en)(\/|$)/);
+
+  if (!match) {
+
+    return;
+
+  }
+
+
+
+  const current = match[1];
+
+  const target = current === "zh-tw" ? "en" : "zh-tw";
+
+  const label = current === "zh-tw" ? "🌐 English" : "🌐 繁體中文";
+
+  const href = path.replace(`/${current}`, `/${target}`) + window.location.search + window.location.hash;
+
+
+
+  const link = document.createElement("a");
+
+  link.className = "language-switch";
+
+  link.href = href;
+
+  link.textContent = label;
+
+  link.setAttribute("aria-label", current === "zh-tw" ? "Switch to English" : "切換至繁體中文");
+
+
+
+  const sidebarHeader = document.querySelector("#quarto-sidebar .sidebar-header");
+
+  if (sidebarHeader) {
+
+    const wrapper = document.createElement("div");
+
+    wrapper.className = "language-switch-wrapper";
+
+    wrapper.appendChild(link);
+
+    sidebarHeader.appendChild(wrapper);
+
+    return;
+
+  }
+
+
+
+  const header = document.querySelector(".quarto-secondary-nav .container-fluid");
+
+  const searchButton = header?.querySelector(".quarto-search-button");
+
+  if (header && searchButton) {
+
+    header.insertBefore(link, searchButton);
+
+  } else {
+
+    document.body.appendChild(link);
+
+  }
+
+})();
+
+</script>
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../ch00/about-author.html" class="pagination-link" aria-label="About the author">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">About the author</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ch02/declarations-and-sugars.html" class="pagination-link" aria-label="2 Declarations and syntactic sugar">
+        <span class="nav-page-text"><span class="chapter-title">2 Declarations and syntactic sugar</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

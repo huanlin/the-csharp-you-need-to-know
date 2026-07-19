@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW" xml:lang="zh-TW"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第 1 章：現代環境與基礎 – The C# You Need to Know</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ch02/declarations-and-sugars.html" rel="next">
+<link href="../ch00/about-author.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-fdd2e7254fafafd8eace889b20274173.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "沒有結果",
+    "search-matching-documents-text": "符合的文件",
+    "search-copy-link-title": "複製搜尋連結",
+    "search-hide-matches-text": "隱藏其他符合的結果",
+    "search-more-match-text": "更多符合結果",
+    "search-more-matches-text": "更多符合結果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "送出",
+    "search-label": "搜尋"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles-html.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="切換側邊欄導航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ch01/fundamentals.html"><span class="chapter-title">第 1 章：現代環境與基礎</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="切換側邊欄導航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜尋" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">The C# You Need to Know</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜尋"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">首頁</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch00/about-book.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">關於本書</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch00/about-author.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">關於作者</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch01/fundamentals.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">第 1 章：現代環境與基礎</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch02/declarations-and-sugars.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">第 2 章：宣告與語法糖</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch03/null-safety.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">第 3 章：空值安全</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch04/immutable-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第 4 章：不可變設計</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch05/error-handling-and-res-mgmt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第 5 章：錯誤處理與資源管理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch06/pattern-matching.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第 6 章：模式比對</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch07/generics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">第 7 章：泛型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch08/delegates-and-lambda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第 8 章：委派與 Lambda 運算式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch09/events-and-pubsub.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第 9 章：事件與發布／訂閱模式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch10/linq-and-functional.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第 10 章：LINQ 與函數式程式設計</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch11/extension-methods.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">第 11 章：擴充方法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch12/async-programming.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第 12 章：非同步程式設計</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ch13/high-performance-memory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第 13 章：高效能記憶體操作</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目錄</h2>
+   
+  <ul>
+  <li><a href="#c-的設計哲學" id="toc-c-的設計哲學" class="nav-link active" data-scroll-target="#c-的設計哲學">1.1 C# 的設計哲學</a>
+  <ul class="collapse">
+  <li><a href="#型別安全編譯器是你的第一道防線" id="toc-型別安全編譯器是你的第一道防線" class="nav-link" data-scroll-target="#型別安全編譯器是你的第一道防線">型別安全：編譯器是你的第一道防線</a></li>
+  </ul></li>
+  <li><a href="#sec-1-2" id="toc-sec-1-2" class="nav-link" data-scroll-target="#sec-1-2">1.2 快速上手</a>
+  <ul class="collapse">
+  <li><a href="#必備工具" id="toc-必備工具" class="nav-link" data-scroll-target="#必備工具">必備工具</a></li>
+  <li><a href="#你的第一個-.net-專案" id="toc-你的第一個-.net-專案" class="nav-link" data-scroll-target="#你的第一個-.net-專案">你的第一個 .NET 專案</a></li>
+  </ul></li>
+  <li><a href="#net-執行環境架構" id="toc-net-執行環境架構" class="nav-link" data-scroll-target="#net-執行環境架構">1.3 .NET 執行環境架構</a>
+  <ul class="collapse">
+  <li><a href="#跨平台支援" id="toc-跨平台支援" class="nav-link" data-scroll-target="#跨平台支援">跨平台支援</a></li>
+  </ul></li>
+  <li><a href="#堆疊與堆積" id="toc-堆疊與堆積" class="nav-link" data-scroll-target="#堆疊與堆積">1.4 堆疊與堆積</a>
+  <ul class="collapse">
+  <li><a href="#堆疊stack" id="toc-堆疊stack" class="nav-link" data-scroll-target="#堆疊stack">堆疊（stack）</a></li>
+  <li><a href="#堆積heap" id="toc-堆積heap" class="nav-link" data-scroll-target="#堆積heap">堆積（heap）</a></li>
+  </ul></li>
+  <li><a href="#實值型別與參考型別" id="toc-實值型別與參考型別" class="nav-link" data-scroll-target="#實值型別與參考型別">1.5 實值型別與參考型別</a>
+  <ul class="collapse">
+  <li><a href="#實值型別value-types" id="toc-實值型別value-types" class="nav-link" data-scroll-target="#實值型別value-types">實值型別（Value Types）</a></li>
+  <li><a href="#參考型別reference-types" id="toc-參考型別reference-types" class="nav-link" data-scroll-target="#參考型別reference-types">參考型別（Reference Types）</a></li>
+  <li><a href="#ask-ai那些容易搞混的型別" id="toc-ask-ai那些容易搞混的型別" class="nav-link" data-scroll-target="#ask-ai那些容易搞混的型別">Ask AI：那些容易搞混的型別</a></li>
+  <li><a href="#陣列的記憶體配置元素型別的差異" id="toc-陣列的記憶體配置元素型別的差異" class="nav-link" data-scroll-target="#陣列的記憶體配置元素型別的差異">陣列的記憶體配置：元素型別的差異</a></li>
+  </ul></li>
+  <li><a href="#boxing-與-unboxing" id="toc-boxing-與-unboxing" class="nav-link" data-scroll-target="#boxing-與-unboxing">1.6 Boxing 與 Unboxing</a>
+  <ul class="collapse">
+  <li><a href="#boxing裝箱" id="toc-boxing裝箱" class="nav-link" data-scroll-target="#boxing裝箱">Boxing（裝箱）</a></li>
+  <li><a href="#unboxing拆箱" id="toc-unboxing拆箱" class="nav-link" data-scroll-target="#unboxing拆箱">Unboxing（拆箱）</a></li>
+  <li><a href="#為什麼要在意" id="toc-為什麼要在意" class="nav-link" data-scroll-target="#為什麼要在意">為什麼要在意？</a></li>
+  </ul></li>
+  <li><a href="#物件與陣列的複製" id="toc-物件與陣列的複製" class="nav-link" data-scroll-target="#物件與陣列的複製">1.7 物件與陣列的複製</a>
+  <ul class="collapse">
+  <li><a href="#物件的淺層複製與深層複製" id="toc-物件的淺層複製與深層複製" class="nav-link" data-scroll-target="#物件的淺層複製與深層複製">物件的淺層複製與深層複製</a></li>
+  <li><a href="#陣列的淺層複製與深層複製" id="toc-陣列的淺層複製與深層複製" class="nav-link" data-scroll-target="#陣列的淺層複製與深層複製">陣列的淺層複製與深層複製</a></li>
+  </ul></li>
+  <li><a href="#本章重點回顧" id="toc-本章重點回顧" class="nav-link" data-scroll-target="#本章重點回顧">本章重點回顧</a></li>
+  <li><a href="#本章術語" id="toc-本章術語" class="nav-link" data-scroll-target="#本章術語">本章術語</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">第 1 章：現代環境與基礎</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">修改於</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">2026年5月3日</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/title.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%"></p>
+</figure>
+</div>
+<p>本章會先介紹基本的開發環境，再探討 .NET 執行環境與 C# 型別系統的核心運作原理。這裡不談簡單的 <code>if/else</code> 和迴圈，而是直接切入後續學習 C# 進階特性所需的基礎觀念。</p>
+<section id="c-的設計哲學" class="level2">
+<h2 class="anchored" data-anchor-id="c-的設計哲學">1.1 C# 的設計哲學</h2>
+<p>C# 是<strong>物件導向（object-oriented）</strong>語言，強調封裝、繼承和多型。但從 C# 3.0 開始，它大量引入了<strong>函數式程式設計（functional programming）</strong>的精華：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">函數式特性</th>
+<th style="text-align: left;">C# 中的實作</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">函式可作為值傳遞</td>
+<td style="text-align: left;">委派（delegate）與 lambda 運算式</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">宣告式資料處理</td>
+<td style="text-align: left;">LINQ 查詢運算式</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">不可變性</td>
+<td style="text-align: left;"><code>record</code>、<code>readonly struct</code>、<code>init</code> 存取子</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pattern matching</td>
+<td style="text-align: left;"><code>switch</code> 運算式、<code>is</code> 運算子</td>
+</tr>
+</tbody>
+</table>
+<p>這就是 <strong>OOP + FP</strong> 混合設計：C# 兼具了物件導向的組織力與函數式的表達力。本書後續介紹的 record、pattern matching 和 LINQ，都源自這個哲學。</p>
+<blockquote class="blockquote">
+<p><strong>名詞釋疑</strong></p>
+<p>在程式語言中，<strong>expression</strong>（運算式）通常指的是「可以被計算（evaluate）並回傳一個值的程式碼片段」。另一方面，<strong>statement</strong>（陳述式）則是執行一個動作，通常不直接傳回值。</p>
+</blockquote>
+<p>接著來看它的型別系統。</p>
+<section id="型別安全編譯器是你的第一道防線" class="level3">
+<h3 class="anchored" data-anchor-id="型別安全編譯器是你的第一道防線">型別安全：編譯器是你的第一道防線</h3>
+<p>C# 是一門<strong>強型別（strongly typed）</strong>語言，型別規則非常嚴格：</p>
+<ul>
+<li><strong>靜態型別（static typing）</strong>：變數的型別在編譯時期就已確定，編譯器會在程式執行前檢查型別錯誤。</li>
+<li><strong>強型別（strong typing）</strong>：不允許隱含的危險型別轉換。例如，你不能把 <code>double</code> 直接賦值給 <code>int</code>，必須明確轉型。</li>
+</ul>
+<p>這樣不僅能提早發現錯誤，也能降低執行時期出錯的機率。現代 C# 的許多功能（如 Nullable Reference Types）都在強化這張安全網。</p>
+<p>下面這段程式碼示範了 C# 如何阻止可能遺失資訊的隱含轉型：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">// 編譯器會阻止這種危險操作</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="dt">double</span> pi <span class="op">=</span> <span class="fl">3.14159</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="dt">int</span> rounded <span class="op">=</span> pi<span class="op">;</span>  <span class="co">// ✗ 編譯錯誤：無法隱含轉換</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="dt">int</span> rounded2 <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>pi<span class="op">;</span>  <span class="co">// ✓ 明確轉型，開發者知道會無條件捨去小數</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在這個例子裡，編譯器不是禁止你轉型，而是要求你把「可能遺失資訊」這件事寫清楚。這種設計讓危險操作不會在程式碼裡悄悄發生。</p>
+<p>也就是說：<strong>讓編譯器幫你減少潛在 bugs</strong>。從型別安全、null 安全、pattern matching 到 record 的值相等性，每一項功能都在減少執行時期的意外。</p>
+</section>
+</section>
+<section id="sec-1-2" class="level2">
+<h2 class="anchored" data-anchor-id="sec-1-2">1.2 快速上手</h2>
+<p>本節會建立一個最簡單的 .NET 專案，並觀察它如何編譯與執行。我們先使用命令列介面（CLI），藉此理解 .NET 專案結構與建置流程（build pipeline）。</p>
+<section id="必備工具" class="level3">
+<h3 class="anchored" data-anchor-id="必備工具">必備工具</h3>
+<p>在開始之前，請先安裝以下工具：</p>
+<ol type="1">
+<li><a href="https://dotnet.microsoft.com/download/dotnet/">.NET 10 SDK（或更新版本）</a>：開發 .NET 應用程式必備。</li>
+<li>開發工具（IDE、編輯器），選擇你覺得合用的：
+<ul>
+<li>Visual Studio 2026 Community：Windows 平台最強大的 IDE，適合大型專案與企業級開發。</li>
+<li>Visual Studio Code：跨平台（Windows、macOS、Linux）、輕量且生態系豐富的編輯器，適合喜歡快速編輯與自訂 workflow 的開發者。</li>
+<li>JetBrains Rider：跨平台（Windows、macOS、Linux）的整合開發工具，非商業用途可免費使用。</li>
+</ul></li>
+</ol>
+</section>
+<section id="你的第一個-.net-專案" class="level3">
+<h3 class="anchored" data-anchor-id="你的第一個-.net-專案">你的第一個 .NET 專案</h3>
+<p>請暫且忘掉 <code>File &gt; New Project</code> 這類滑鼠操作，打開終端機（底下指令以 Windows 環境為例），按照以下步驟操作：</p>
+<p><strong>Step 1：</strong>建立 Console 應用程式</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dotnet</span> new console <span class="at">--name</span> HelloCSharp</span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>這會以預設的 Console 專案範本建立一個名為「HelloCSharp」的 C# 專案，專案裡面會有一個預設的主程式，檔案名稱是 <code>Program.cs</code>，裡面只有一行程式碼（註解不算）：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// See https://aka.ms/new-console-template for more information</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span><span class="st">"Hello, World!"</span><span class="op">);</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Step 2：</strong>進入專案目錄</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> HelloCSharp</span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Step 3：</strong>執行程式</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dotnet</span> run</span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>當你輸入 <code>dotnet run</code> 時，.NET SDK 會自動還原套件（restore）、編譯（build），然後執行應用程式。接著，你會看到終端機輸出：</p>
+<pre class="text"><code>Hello, World!</code></pre>
+<p>雖然你剛才實際輸入的 .NET CLI 命令只有 <code>dotnet new</code> 和 <code>dotnet run</code>（<code>cd</code> 不算），但整個流程包含三個階段：</p>
+<ul>
+<li><code>dotnet new</code>：根據範本產生專案檔（<code>.csproj</code>）和程式檔（<code>Program.cs</code>）。</li>
+<li><code>dotnet build</code>：將 C# 原始碼編譯成<strong>中介語言（IL）</strong>並打包成 <code>.dll</code> 或 <code>.exe</code>。</li>
+<li><code>dotnet run</code>：啟動 .NET Runtime（Common Language Runtime，CLR）執行編譯好的程式。</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/compilation-pipeline.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%"></p>
+</figure>
+</div>
+<blockquote class="blockquote">
+<p><strong>什麼是 IL（Intermediate Language）？</strong></p>
+<p>C# 程式碼不會直接編譯成機器碼，而是先編譯成一種稱為 IL（Intermediate Language，中介語言）的中間格式。IL 是一種與平台無關的指令集，讓同一份編譯後的程式可以在 Windows、macOS、Linux 等不同作業系統上執行。當程式執行時，.NET Runtime（CLR）會將 IL 即時編譯（JIT, Just-In-Time compilation）成該作業系統的機器碼。詳細資訊請參閱<a href="https://learn.microsoft.com/dotnet/standard/managed-code#intermediate-language--execution">微軟官方文件</a>。</p>
+</blockquote>
+<p>如果你想試試用整合開發環境（IDE）來編寫和執行剛才的範例程式，可參考微軟的線上教學文件：<a href="https://learn.microsoft.com/dotnet/core/tutorials/with-visual-studio">使用 Visual Studio 建立 .NET 控制台應用程式</a>。</p>
+<blockquote class="blockquote">
+<p><strong>Note</strong></p>
+<p>現代 C# 專案通常啟用「<a href="https://learn.microsoft.com/dotnet/csharp/tutorials/top-level-statements">頂層語句</a>（top-level statements）」，這就是為什麼你在 <code>Program.cs</code> 中看不到舊版 C# 的寫法，如 <code>class Program</code> 或 <code>static void Main</code>，而只有簡潔的一行 <code>Console.WriteLine("Hello, World!");</code>。</p>
+</blockquote>
+</section>
+</section>
+<section id="net-執行環境架構" class="level2">
+<h2 class="anchored" data-anchor-id="net-執行環境架構">1.3 .NET 執行環境架構</h2>
+<p>當你輸入 <code>dotnet run</code> 指令，看到程式跑起來的那一刻，背後其實是一整套分工精細的系統在協同運作。.NET 平台採用分層設計，兼顧高階框架的便利與底層效能的掌控。</p>
+<p>具體來說，.NET 執行環境可拆解為三個核心層次：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 22%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">層次</th>
+<th style="text-align: left;">名稱</th>
+<th style="text-align: left;">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">最上層</td>
+<td style="text-align: left;"><strong>Application Layer</strong></td>
+<td style="text-align: left;">應用程式框架（ASP.NET、MAUI、WinUI 等）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">中間層</td>
+<td style="text-align: left;"><strong>BCL</strong></td>
+<td style="text-align: left;">基礎類別庫（集合、I/O、網路、加密等）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">最底層</td>
+<td style="text-align: left;"><strong>CLR</strong></td>
+<td style="text-align: left;">通用語言執行環境（記憶體管理、JIT 編譯、例外處理）</td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/dotnet-layers.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<p><strong>CLR（Common Language Runtime）</strong> 是整個 .NET 的心臟，負責：</p>
+<ul>
+<li>將 IL 編譯成機器碼（JIT 編譯）</li>
+<li>自動記憶體管理（垃圾回收）</li>
+<li>型別安全檢查</li>
+<li>例外處理</li>
+</ul>
+<p><strong>BCL（Base Class Library）</strong> 提供開發者日常需要的基礎功能：</p>
+<ul>
+<li>集合（<code>List&lt;T&gt;</code>、<code>Dictionary&lt;TKey,TValue&gt;</code>）</li>
+<li>字串處理、正規運算式（regular expressions）</li>
+<li>檔案 I/O、網路</li>
+<li>非同步程式設計（<code>async</code>/<code>await</code>）</li>
+</ul>
+<p><strong>Application Layer</strong> 則是針對特定應用場景的框架：</p>
+<ul>
+<li><strong>ASP.NET Core</strong>：Web 應用程式與 API</li>
+<li><strong>MAUI</strong>：跨平台行動裝置與桌面應用</li>
+<li><strong>WinUI / WPF</strong>：Windows 桌面應用</li>
+</ul>
+<p>理解這幾個層次後，就比較容易看懂同一份 C# 程式碼為什麼能在不同環境中執行。</p>
+<section id="跨平台支援" class="level3">
+<h3 class="anchored" data-anchor-id="跨平台支援">跨平台支援</h3>
+<p>現代 .NET（從 .NET 5 開始）支援多種平台：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">執行平台</th>
+<th style="text-align: left;">支援的應用類型</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Windows</td>
+<td style="text-align: left;">Console、Web、桌面（WPF/WinUI）、服務</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">macOS</td>
+<td style="text-align: left;">Console、Web、桌面（Mac Catalyst）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Linux</td>
+<td style="text-align: left;">Console、Web、服務</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">iOS / Android</td>
+<td style="text-align: left;">行動應用（透過 MAUI）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">瀏覽器</td>
+<td style="text-align: left;">WebAssembly（透過 Blazor）</td>
+</tr>
+</tbody>
+</table>
+<p>這意味著你用 C# 寫的程式碼，只要不依賴特定平台的 API，就可以在這些平台上執行。</p>
+<p>從執行環境往下看，下一個會直接影響程式行為與效能的基礎，就是記憶體如何配置。</p>
+</section>
+</section>
+<section id="堆疊與堆積" class="level2">
+<h2 class="anchored" data-anchor-id="堆疊與堆積">1.4 堆疊與堆積</h2>
+<p>要寫出高效能且少 bug 的程式，得先認識記憶體配置。最基礎的兩個概念是 <strong>堆疊（stack）</strong> 和 <strong>堆積（heap）</strong>。</p>
+<p>為了方便理解，我們可以這樣想像：</p>
+<ul>
+<li><strong>Stack（堆疊）像是你的辦公桌</strong>：
+<ul>
+<li>空間有限，但存取速度極快（伸手就拿得到）。</li>
+<li>用來處理當下正在進行的工作（函式呼叫、區域變數）。</li>
+<li>當工作結束（函式執行完畢），桌上的東西就會立刻被清空，準備處理下一件工作。</li>
+</ul></li>
+<li><strong>Heap（堆積）像是公司的倉庫</strong>：
+<ul>
+<li>空間很大，但存取速度較慢（要走去倉庫找）。</li>
+<li>用來存放長期保存的資料或大型物件。</li>
+<li>當你不再需要某個物品時，不會立刻消失，而是等待清潔人員（garbage collector）在適當時機回收清理。</li>
+</ul></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/stack-vs-heap.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<p>堆疊和堆積都是電腦當中的記憶體區塊，只是按照用途和特性給予不同的名稱而已。以下分別說明。</p>
+<section id="堆疊stack" class="level3">
+<h3 class="anchored" data-anchor-id="堆疊stack">堆疊（stack）</h3>
+<ul>
+<li><strong>特性</strong>：
+<ul>
+<li><strong>極快</strong>：配置與釋放只需移動指標。</li>
+<li><strong>確定性</strong>：變數離開作用域（scope）即自動釋放。</li>
+<li><strong>空間小</strong>：通常只有 1～4 MB（視平台與設定而定），用盡會導致 <code>StackOverflowException</code>。最常見的原因是無限遞迴（infinite recursion）或遞迴層次過深。</li>
+</ul></li>
+<li><strong>存放內容</strong>：
+<ul>
+<li>方法呼叫的執行脈絡（參數、回傳位址等）。</li>
+<li>某些與目前呼叫相關的區域資料；實際配置位置也可能受 JIT 最佳化影響。</li>
+</ul></li>
+</ul>
+</section>
+<section id="堆積heap" class="level3">
+<h3 class="anchored" data-anchor-id="堆積heap">堆積（heap）</h3>
+<ul>
+<li><strong>特性</strong>：
+<ul>
+<li><strong>成本較高</strong>：配置與釋放的成本均高於 stack；釋放依賴垃圾回收器（garbage collector, GC）不定期批次回收，而非每次物件不再被使用時立刻清理——這是為了避免頻繁清理帶來的效能負擔。</li>
+<li><strong>靈活</strong>：空間大，適合存放生命週期較長或大小不定的資料。</li>
+</ul></li>
+<li><strong>存放內容</strong>：
+<ul>
+<li>較大或生命週期較長的資料、物件（objects）與集合（collections）等。</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="實值型別與參考型別" class="level2">
+<h2 class="anchored" data-anchor-id="實值型別與參考型別">1.5 實值型別與參考型別</h2>
+<p>前面提過，C# 程式執行於 <strong>CLR（Common Language Runtime）</strong> 之上。CLR 的任務很多，包括管理記憶體、處理例外、提供安全機制等等。不過，你不需要立刻了解 CLR 的內部運作和所有功能，只要先知道它肩負以下兩個重要工作：</p>
+<ul>
+<li>管理型別資訊</li>
+<li>配置與回收記憶體（垃圾回收）</li>
+</ul>
+<p>在記憶體配置的部分，CLR 會根據型別特性、使用情境，以及執行時期最佳化來決定資料的實際配置方式。<strong>實值型別（value types）</strong> 和 <strong>參考型別（reference types）</strong> 是理解這件事的重要切入點，但它們並不是判斷資料一定落在 stack 或 heap 的唯一依據。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/the-type-system.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<section id="實值型別value-types" class="level3">
+<h3 class="anchored" data-anchor-id="實值型別value-types">實值型別（Value Types）</h3>
+<p>實值型別有這些：</p>
+<ul>
+<li>所有數值型別（<code>int</code>、<code>double</code>、<code>byte</code>、<code>decimal</code>…）</li>
+<li><code>bool</code>、<code>char</code></li>
+<li><code>enum</code>（列舉）</li>
+<li><code>struct</code>（結構），包含 <code>DateTime</code>、<code>Guid</code>、<code>Span&lt;T&gt;</code></li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> <code>Span&lt;T&gt;</code> 是一個 ref struct。這是一種 <strong>stack-only</strong> 的特殊 struct：<code>Span&lt;T&gt;</code> 這個值本身不能逃逸到 heap，因此不能被裝箱（box）、也不能作為 <code>class</code> 的欄位。不過，它所表示的資料則可能在 stack 上，也可能在 heap 上。本書〈第 13 章：高效能記憶體操作〉的 13.2 節有更詳細的介紹。</p>
+</blockquote>
+<p>以下是它們的行為特性：</p>
+<ul>
+<li><strong>直接包含資料</strong>。</li>
+<li>指派給另一個變數時，會<strong>複製整個值</strong>（copy by value）。</li>
+</ul>
+<p>你可以把這想像成影印文件：當你把文件 A 影印一份給同事（變數賦值），同事在影本上塗寫（修改變數），並不會影響你原本的那份文件。</p>
+<p>以下範例展示了實值型別的特性，即指派時會複製值本身：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb7-1"><a href="#cb7-1"></a><span class="dt">int</span> a <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="dt">int</span> b <span class="op">=</span> a<span class="op">;</span>  <span class="co">// 複製一份 10 給 b</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>b <span class="op">=</span> <span class="dv">99</span><span class="op">;</span>     <span class="co">// 修改 b 不會影響 a</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>a<span class="op">);</span> <span class="co">// 輸出 10</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>第 3 行修改 <code>b</code> 的值並不會改變 <code>a</code> 的值，因為 <code>int</code> 是實值型別。</p>
+<blockquote class="blockquote">
+<p><strong>原始碼：</strong> <a href="https://github.com/huanlin/csharp-book-support/tree/master/example-code-zh-tw/ch01/DemoValueTypes">DemoValueTypes</a></p>
+</blockquote>
+</section>
+<section id="參考型別reference-types" class="level3">
+<h3 class="anchored" data-anchor-id="參考型別reference-types">參考型別（Reference Types）</h3>
+<p>以下都是參考型別：</p>
+<ul>
+<li><code>class</code>（包含 <code>string</code>, <code>object</code>, 陣列如 <code>int[]</code>）</li>
+<li><code>interface</code></li>
+<li><code>delegate</code>（第 8 章會介紹委派與 Lambda，並在第 9 章介紹事件）</li>
+<li><code>record</code>（預設為參考型別，詳見本書第 4 章）</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Note</strong></p>
+<p><code>string</code> 雖然是參考型別，但因為它是不可變的（immutable），所以實際使用時，會呈現類似實值型別的效果。不過在型別分類上，它仍然屬於參考型別。</p>
+</blockquote>
+<p>行為特性：</p>
+<ul>
+<li><strong>儲存參考（reference）</strong>，你可以把它想成用來找到 heap 上物件的位置資訊。</li>
+<li>指派給變數時，只<strong>複製參考</strong>，兩個變數可指向同一個物件。</li>
+</ul>
+<p>這好比分享雲端文件連結：你把文件的連結傳給同事（變數賦值），你們兩個人手上拿的都只是連結（reference），但連結到的都是同一份雲端文件（object）。當同事透過連結修改了文件內容，你打開連結時也會看到修改後的結果。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/copy-by-address.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p>換成參考型別時，指派的效果就不同了。以下範例中，<code>user2</code> 取得的是同一個物件的參考：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb8-1"><a href="#cb8-1"></a><span class="dt">var</span> user1 <span class="op">=</span> <span class="kw">new</span> User <span class="op">{</span> Name <span class="op">=</span> <span class="st">"Alice"</span> <span class="op">};</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="dt">var</span> user2 <span class="op">=</span> user1<span class="op">;</span>   <span class="co">// 複製參考，user1 和 user2 指向同一個物件</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>user2<span class="op">.</span><span class="fu">Name</span> <span class="op">=</span> <span class="st">"Bob"</span><span class="op">;</span>  <span class="co">// 修改 user2 會影響 user1</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>user1<span class="op">.</span><span class="fu">Name</span><span class="op">);</span> <span class="co">// 輸出 Bob</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>因此，透過 <code>user2</code> 修改 <code>Name</code> 時，<code>user1</code> 看到的也是同一個物件被修改後的狀態。</p>
+<blockquote class="blockquote">
+<p><strong>原始碼：</strong> <a href="https://github.com/huanlin/csharp-book-support/tree/master/example-code-zh-tw/ch01/DemoReferenceTypes">DemoReferenceTypes</a></p>
+</blockquote>
+</section>
+<section id="ask-ai那些容易搞混的型別" class="level3">
+<h3 class="anchored" data-anchor-id="ask-ai那些容易搞混的型別">Ask AI：那些容易搞混的型別</h3>
+<p>很多 bugs 都源自對型別分類的誤解（面試考題也常問）。你可以把這段提示詞丟給 AI 測試觀念：</p>
+<blockquote class="blockquote">
+<p><strong>Prompt</strong></p>
+<p>在 C# 中，<code>int[]</code>（整數陣列）是 value type 還是 reference type？如果是 reference type，但它裡面裝的又是 <code>int</code>（value type），那這些 <code>int</code> 是存在 stack 還是 heap？請解釋底層記憶體配置。</p>
+</blockquote>
+<p>依你使用的 AI 工具而定，每次得到的答案可能有些差異。以下是 AI 回答的參考範例（經過簡化）：</p>
+<blockquote class="blockquote">
+<p><strong>AI 回答</strong></p>
+<p><code>int[]</code> 本身是陣列，屬於 <strong>Reference Type</strong>。因此，整個陣列物件（包含它裡面的所有 <code>int</code> 元素）都儲存在 <strong>Heap</strong> 上，即使 <code>int</code> 本身是 Value Type。</p>
+</blockquote>
+</section>
+<section id="陣列的記憶體配置元素型別的差異" class="level3">
+<h3 class="anchored" data-anchor-id="陣列的記憶體配置元素型別的差異">陣列的記憶體配置：元素型別的差異</h3>
+<p>許多開發者以為陣列就是「連續的記憶體空間」，但這個觀念只對了一半。</p>
+<p>事實上，陣列的底層記憶體配置方式，會因為元素是<strong>實值型別</strong>還是<strong>參考型別</strong>而有顯著差異。這個差異會影響程式的執行效能（CPU cache 命中率）與垃圾回收（GC）的負擔。接著從記憶體配置的觀點來看兩者有什麼不同。</p>
+<section id="value-type-元素陣列" class="level4">
+<h4 class="anchored" data-anchor-id="value-type-元素陣列">Value Type 元素陣列</h4>
+<p>以底下的範例來說：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb9-1"><a href="#cb9-1"></a><span class="dt">long</span><span class="op">[]</span> numbers <span class="op">=</span> <span class="kw">new</span> <span class="dt">long</span><span class="op">[</span><span class="dv">3</span><span class="op">];</span> <span class="co">// 每個 long 是 8 bytes</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>numbers<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="dv">12345</span><span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>numbers<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> <span class="dv">54321</span><span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>numbers<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="dv">99999</span><span class="op">;</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在 heap 上，CLR 會配置一塊<strong>連續的記憶體空間</strong>，三個 <code>long</code> 值直接儲存在陣列中。具體來說：</p>
+<ul>
+<li><strong>陣列結構</strong>：包含陣列長度等標頭資訊。</li>
+<li><strong>內容</strong>：直接存放數值本身（如 <code>12345</code>），緊密排列。</li>
+<li><strong>結果</strong>：一次記憶體配置，資料集中，效率高。</li>
+</ul>
+<p>打個比方，就像是健身房的一整排置物櫃：你打開第 0 號櫃子，裡面直接放著你的東西（數值）；打開第 1 號櫃子，裡面也直接放著東西。存取非常快速且直接。</p>
+</section>
+<section id="reference-type-元素陣列" class="level4">
+<h4 class="anchored" data-anchor-id="reference-type-元素陣列">Reference Type 元素陣列</h4>
+<p>接著看元素型別是 <code>StringBuilder</code> 的陣列：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb10-1"><a href="#cb10-1"></a>StringBuilder<span class="op">[]</span> builders <span class="op">=</span> <span class="kw">new</span> StringBuilder<span class="op">[</span><span class="dv">3</span><span class="op">];</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>builders<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span><span class="st">"builder1"</span><span class="op">);</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>builders<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span><span class="st">"builder2"</span><span class="op">);</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>builders<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span><span class="st">"builder3"</span><span class="op">);</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在這種情況下，陣列中<strong>不是直接存放物件本身，而是存放指向物件的參考</strong>。具體來說：</p>
+<ul>
+<li><strong>陣列結構</strong>：包含陣列長度等標頭資訊。</li>
+<li><strong>內容</strong>：存放的是指向 <code>StringBuilder</code> 物件的參考。</li>
+<li><strong>實際物件</strong>：分散放在堆積（heap）裡。</li>
+<li><strong>結果</strong>：多次記憶體配置（陣列一次 + 每個物件各一次），資料非連續，存取成本較高。</li>
+</ul>
+<p>如同一排信箱：打開第 0 號信箱，裡面只有一張紙條（參考），上面寫著「你的包裹在倉庫 B 區 3 號架」。你必須再跑去倉庫（heap 的其他位置）才能真正拿到包裹（物件）。如果每個信箱裡的紙條都指向倉庫的不同角落，你就得跑來跑去，這當然比較慢。</p>
+<p>這帶來兩個重要影響：</p>
+<ol type="1">
+<li><strong>記憶體區域性（locality）</strong>：value type 陣列的元素在記憶體中是連續存放，故 CPU 快取命中率高，存取效能更好。</li>
+<li><strong>GC 壓力</strong>：reference type 陣列會產生多個散落物件，增加垃圾回收的負擔。</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/array-alloc.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+<blockquote class="blockquote">
+<p><strong>本節重點整理：</strong></p>
+<ul>
+<li>無論是實值型別還是參考型別，資料最終都必須有實際的儲存位置。</li>
+<li>方法呼叫相關資料與許多區域變數常由 stack frame 或暫存器承載，但這屬於 runtime / JIT 的實作細節。</li>
+<li>實值型別的重點是「直接包含資料」；它可能出現在區域變數、物件欄位、或陣列元素中，不一定只在堆疊（stack）上。</li>
+<li>參考型別變數的值是一個 reference；該 reference 所指向的物件通常配置於堆積（heap）上。</li>
+</ul>
+</blockquote>
+</section>
+</section>
+</section>
+<section id="boxing-與-unboxing" class="level2">
+<h2 class="anchored" data-anchor-id="boxing-與-unboxing">1.6 Boxing 與 Unboxing</h2>
+<p>Boxing 和 unboxing 是為了讓實值型別（value types）也能當作物件處理的機制，但它有額外的效能成本。</p>
+<section id="boxing裝箱" class="level3">
+<h3 class="anchored" data-anchor-id="boxing裝箱">Boxing（裝箱）</h3>
+<p>所謂的 boxing（裝箱）就是把一個 <strong>value type</strong> 轉換為 <code>object</code>（reference type）的過程。</p>
+<p>就好像你買了一顆蘋果（value type），原本是直接以「蘋果本體」來使用；但如果現在要把它當成一件可統一管理的「物件」送進倉庫（heap），你就必須把它<strong>裝進一個箱子</strong>（boxing），並且貼上標籤。這個「找箱子」和「打包」的過程，就是額外的成本。</p>
+<p>Boxing 過程發生了什麼事：CLR 會在 heap 上配置一塊記憶體，把 value type 的值複製進去。這個步驟是必要的，因為 <code>object</code> 是參考型別，需要在 heap 上有一個位址；而 <code>int</code> 等值型別本身沒有 heap 位址，所以必須先把它包裝成一個 heap 上的物件。</p>
+<p>先看一個最簡單的裝箱範例：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb11-1"><a href="#cb11-1"></a><span class="dt">int</span> i <span class="op">=</span> <span class="dv">123</span><span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="dt">object</span> o <span class="op">=</span> i<span class="op">;</span> <span class="co">// Boxing：將 int 封裝進 heap 上的 object</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>這裡的 <code>o</code> 是一個參考，指向 heap 上新建立的 boxed <code>int</code> 物件。</p>
+</section>
+<section id="unboxing拆箱" class="level3">
+<h3 class="anchored" data-anchor-id="unboxing拆箱">Unboxing（拆箱）</h3>
+<p>跟 boxing（裝箱）相反，unboxing（拆箱）指的是將 <code>object</code> 轉回 <strong>value type</strong> 的過程。</p>
+<p>Unboxing 實際做的事情：檢查 object 裡面是否真的裝了該型別的值，如果是，便將裡面的值取出並複製到目標位置。</p>
+<p>拆箱時，必須明確指定要取回的實值型別：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> j <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>o<span class="op">;</span> <span class="co">// Unboxing</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>如果 <code>o</code> 裡面裝的不是 <code>int</code>，這行程式會在執行時期丟出例外。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/boxing-unboxing.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</section>
+<section id="為什麼要在意" class="level3">
+<h3 class="anchored" data-anchor-id="為什麼要在意">為什麼要在意？</h3>
+<p>Boxing 有兩個成本：</p>
+<ol type="1">
+<li><strong>CPU 計算</strong>：複製資料與記憶體配置。</li>
+<li><strong>GC 壓力</strong>：Boxing 會產生額外的 heap 物件，增加垃圾回收的工作量。</li>
+</ol>
+<p>隱性 boxing 陷阱常見於舊式集合（如 <code>ArrayList</code>）或格式化字串。<code>ArrayList</code> 因為將所有元素存為 <code>object</code> 型別，所以加入值型別時都會自動觸發裝箱。以下是一個常見的例子：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb13-1"><a href="#cb13-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="co">// 陷阱：string.Format 接受 object 參數</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="dt">string</span> s <span class="op">=</span> <span class="dt">string</span><span class="op">.</span><span class="fu">Format</span><span class="op">(</span><span class="st">"Score: {0}"</span><span class="op">,</span> x<span class="op">);</span> <span class="co">// x 被 boxing!</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co">// 現代解法：字串插補（通常編譯器會優化）</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="dt">string</span> s2 <span class="op">=</span> $<span class="st">"Score: {x}"</span><span class="op">;</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>原始碼：</strong> <a href="https://github.com/huanlin/csharp-book-support/tree/master/example-code-zh-tw/ch01/DemoBoxingUnboxing">DemoBoxingUnboxing</a></p>
+</blockquote>
+<p>要提醒的是，「字串插補是否會造成 boxing」取決於編譯器版本與具體寫法；在現代 C#/.NET 中，多數常見情境（例如插補 <code>int</code>）通常<strong>不會</strong>再退回到 <code>string.Format(object, ...)</code> 那種會 boxing 的路徑，但仍可能產生字串配置（allocation）。</p>
+<p>如果你遇到的是「大量格式化輸出」的熱點（hot path），且要求高效能的場景，更可靠的做法通常是：</p>
+<ul>
+<li>盡量避免走到以 <code>object</code> 參數為主的 API（例如某些 <code>params object[]</code> 形式）。</li>
+<li>善用可寫入緩衝區的格式化 API（例如搭配 <code>Span&lt;char&gt;</code> 的 <code>TryFormat</code>），以減少暫時字串配置（詳見第 13 章）。</li>
+<li>如果是集合類型，優先採用 <strong>泛型（generics）</strong> 集合，例如用 <code>List&lt;int&gt;</code> 取代 <code>ArrayList</code>。</li>
+</ul>
+<blockquote class="blockquote">
+<ul>
+<li>字串插補（string interpolation）會在本書第 2 章介紹（第 2.7 節）。</li>
+<li>泛型（generics）在本書第 7 章。</li>
+</ul>
+</blockquote>
+</section>
+</section>
+<section id="物件與陣列的複製" class="level2">
+<h2 class="anchored" data-anchor-id="物件與陣列的複製">1.7 物件與陣列的複製</h2>
+<p>複製物件或陣列時，得先搞懂<strong>淺層複製（shallow copy）</strong>和<strong>深層複製（deep copy）</strong>是怎麼運作的，因為 C# 沒有內建的深層複製機制。這個主題橫跨實值型別與參考型別，是記憶體管理的重要概念。</p>
+<section id="物件的淺層複製與深層複製" class="level3">
+<h3 class="anchored" data-anchor-id="物件的淺層複製與深層複製">物件的淺層複製與深層複製</h3>
+<p><strong>淺層複製</strong>只複製物件本身，裡面的參考型別欄位還是指向同一個物件：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">class</span> Team</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="op">{</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>    <span class="kw">public</span> <span class="dt">string</span> Name <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span> <span class="op">=</span> <span class="dt">string</span><span class="op">.</span><span class="fu">Empty</span><span class="op">;</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>    <span class="kw">public</span> List<span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;</span> Members <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span> <span class="op">=</span> <span class="kw">new</span><span class="op">();</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a></span>
+<span id="cb14-6"><a href="#cb14-6"></a>    <span class="co">// 使用 object.MemberwiseClone() 逐一複製成員（淺層複製）</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a>    <span class="kw">public</span> Team <span class="fu">ShallowCopy</span><span class="op">()</span> <span class="op">=&gt;</span> <span class="op">(</span>Team<span class="op">)</span><span class="fu">MemberwiseClone</span><span class="op">();</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="op">}</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a></span>
+<span id="cb14-10"><a href="#cb14-10"></a><span class="dt">var</span> team1 <span class="op">=</span> <span class="kw">new</span> Team</span>
+<span id="cb14-11"><a href="#cb14-11"></a><span class="op">{</span></span>
+<span id="cb14-12"><a href="#cb14-12"></a>    Name <span class="op">=</span> <span class="st">"Dev"</span><span class="op">,</span></span>
+<span id="cb14-13"><a href="#cb14-13"></a>    Members <span class="op">=</span> <span class="kw">new</span> List<span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;</span> <span class="op">{</span> <span class="st">"Alice"</span><span class="op">,</span> <span class="st">"Bob"</span> <span class="op">}</span></span>
+<span id="cb14-14"><a href="#cb14-14"></a><span class="op">};</span></span>
+<span id="cb14-15"><a href="#cb14-15"></a></span>
+<span id="cb14-16"><a href="#cb14-16"></a><span class="dt">var</span> team2 <span class="op">=</span> team1<span class="op">.</span><span class="fu">ShallowCopy</span><span class="op">();</span> <span class="co">// 淺層複製</span></span>
+<span id="cb14-17"><a href="#cb14-17"></a>team2<span class="op">.</span><span class="fu">Name</span> <span class="op">=</span> <span class="st">"QA"</span><span class="op">;</span>               <span class="co">// team2 有自己的 Name 副本</span></span>
+<span id="cb14-18"><a href="#cb14-18"></a>team2<span class="op">.</span><span class="fu">Members</span><span class="op">.</span><span class="fu">Add</span><span class="op">(</span><span class="st">"Charlie"</span><span class="op">);</span>    <span class="co">// 但 Members 仍指向同一個 List！</span></span>
+<span id="cb14-19"><a href="#cb14-19"></a></span>
+<span id="cb14-20"><a href="#cb14-20"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>team1<span class="op">.</span><span class="fu">Members</span><span class="op">.</span><span class="fu">Count</span><span class="op">);</span> <span class="co">// 輸出 3（受影響！）</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>此範例展示了淺層複製可能造成的潛在 bug：內層的參考物件只是複製參考，因此對 <code>team2.Members</code> 串列加入新元素時，等同於改動 <code>team1.Members</code> 串列。</p>
+<blockquote class="blockquote">
+<p><strong>原始碼：</strong> <a href="https://github.com/huanlin/csharp-book-support/tree/master/example-code-zh-tw/ch01/DemoShallowCopy">DemoShallowCopy</a></p>
+</blockquote>
+<p>.NET 早期版本提供了 <code>ICloneable</code> 介面作為複製物件的標準做法：當類別需要提供複製操作時，只要實作該介面的 <code>Clone()</code> 方法即可。但此設計有個明顯缺點：<code>Clone()</code> 方法本身的語意不明確，它沒有明確規定是「淺層複製」還是「深層複製」。於是，當你呼叫一個第三方程式庫的 <code>Clone()</code>，往往需要去查文件來確認它到底是執行淺層複製，還是複製了整個物件樹。</p>
+<p>因此，實務上通常不建議把 <code>ICloneable</code> 當成公開 API 的複製契約；如果物件要提供複製功能，較好的做法是在類別裡面定義名稱明確的方法，例如 <code>ShallowCopy</code> 或 <code>DeepCopy</code>，就如前面範例所展示的。</p>
+<blockquote class="blockquote">
+<p><strong>Note</strong></p>
+<p>其他複製物件的方法還有<strong>複製建構式</strong>（copy constructor），以及使用 <code>record</code> 型別搭配 <code>with</code> 運算式來做 non-destructive mutation（詳見本書第 4 章）。請注意：<code>with</code> 預設仍是<strong>淺層複製</strong>；如果成員裡面有可變的巢狀參考型別，仍然可能共用同一份內部物件。</p>
+</blockquote>
+<p>如果要提供深層複製，就必須明確決定哪些成員需要建立新實例。以下範例示範的是以<strong>複製建構式</strong>（copy constructor）來實作深層複製。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">class</span> Team</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="op">{</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>    <span class="kw">public</span> <span class="dt">string</span> Name <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span> <span class="op">=</span> <span class="dt">string</span><span class="op">.</span><span class="fu">Empty</span><span class="op">;</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>    <span class="kw">public</span> List<span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;</span> Members <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span> <span class="op">=</span> <span class="kw">new</span><span class="op">();</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a></span>
+<span id="cb15-6"><a href="#cb15-6"></a>    <span class="kw">public</span> <span class="fu">Team</span><span class="op">()</span> <span class="op">{</span> <span class="op">}</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a>    <span class="kw">public</span> <span class="fu">Team</span><span class="op">(</span>Team original<span class="op">)</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>    <span class="op">{</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a>        <span class="co">// string 是 immutable，可直接複製參考。</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a>        Name <span class="op">=</span> original<span class="op">.</span><span class="fu">Name</span><span class="op">;</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a></span>
+<span id="cb15-13"><a href="#cb15-13"></a>        <span class="co">// 建立新的 List，避免與原物件共用同一個 Members 集合。</span></span>
+<span id="cb15-14"><a href="#cb15-14"></a>        Members <span class="op">=</span> <span class="kw">new</span> List<span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;(</span>original<span class="op">.</span><span class="fu">Members</span><span class="op">);</span></span>
+<span id="cb15-15"><a href="#cb15-15"></a>    <span class="op">}</span></span>
+<span id="cb15-16"><a href="#cb15-16"></a><span class="op">}</span></span>
+<span id="cb15-17"><a href="#cb15-17"></a></span>
+<span id="cb15-18"><a href="#cb15-18"></a><span class="dt">var</span> team1 <span class="op">=</span> <span class="kw">new</span> Team</span>
+<span id="cb15-19"><a href="#cb15-19"></a><span class="op">{</span></span>
+<span id="cb15-20"><a href="#cb15-20"></a>    Name <span class="op">=</span> <span class="st">"Dev"</span><span class="op">,</span></span>
+<span id="cb15-21"><a href="#cb15-21"></a>    Members <span class="op">=</span> <span class="kw">new</span> List<span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;</span> <span class="op">{</span> <span class="st">"Alice"</span><span class="op">,</span> <span class="st">"Bob"</span> <span class="op">}</span></span>
+<span id="cb15-22"><a href="#cb15-22"></a><span class="op">};</span></span>
+<span id="cb15-23"><a href="#cb15-23"></a></span>
+<span id="cb15-24"><a href="#cb15-24"></a><span class="dt">var</span> team2 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Team</span><span class="op">(</span>team1<span class="op">);</span>  <span class="co">// 使用複製建構式來建立物件的副本</span></span>
+<span id="cb15-25"><a href="#cb15-25"></a>team2<span class="op">.</span><span class="fu">Members</span><span class="op">.</span><span class="fu">Add</span><span class="op">(</span><span class="st">"Charlie"</span><span class="op">);</span></span>
+<span id="cb15-26"><a href="#cb15-26"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>team1<span class="op">.</span><span class="fu">Members</span><span class="op">.</span><span class="fu">Count</span><span class="op">);</span> <span class="co">// 輸出 2（team1 不受影響）</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>其中的這行程式碼會建立新的 <code>List</code>，避免與原物件共用同一個 <code>Members</code> 集合：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb16-1"><a href="#cb16-1"></a>Members <span class="op">=</span> <span class="kw">new</span> List<span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;(</span>original<span class="op">.</span><span class="fu">Members</span><span class="op">);</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>這裡由於元素是不可變的 <code>string</code>，故只需複製元素參考，不必另外複製字串物件。</p>
+<p>在這個範例中：</p>
+<ul>
+<li><code>Name</code> 屬性直接沿用原本的 <code>string</code> 參考，但不會造成問題。為什麼？因為 <code>string</code> 雖然是參考型別，但它是<strong>不可變（immutable）</strong>的——雖然寫法上看起來字串是可修改的，但其實任何對字串的修改操作（如 <code>Replace</code>、<code>ToUpper</code>）都會產生一個<strong>新的</strong>字串物件。相對地，<code>Members</code> 是 <code>List&lt;string&gt;</code>，屬於可變（mutable）的集合，必須建立新實例才能避免共用同一份資料。</li>
+<li>複製建構式（copy constructor）特別適合需要明確控制複製邏輯的類別。雖然名稱不像 <code>ShallowCopy</code> 或 <code>DeepCopy</code> 那樣明確，但它的好處是強型別（輸入參數和回傳值都是），而且是現代 .NET 實作物件複製的常見作法。</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>原始碼：</strong> <a href="https://github.com/huanlin/csharp-book-support/tree/master/example-code-zh-tw/ch01/DemoDeepCopy">DemoDeepCopy</a></p>
+</blockquote>
+<p>請注意，<code>new List&lt;string&gt;(original.Members)</code> 這種寫法會建立一個新的串列容器。由於串列中的元素是不可變的 <code>string</code>，這樣就已足以達到此範例所需的隔離效果。如果串列包含的是可變的參考型別，例如 <code>List&lt;Person&gt;</code>，那麼 <code>new List&lt;Person&gt;(original.Members)</code> 其實只複製了串列容器本身，容器裡面的 <code>Person</code> 物件參考仍然指向原本的物件。在這種情況下，你必須逐一複製每個 <code>Person</code> 物件，才能達到真正的完全隔離。</p>
+<p>總之，記住這個原則：如果物件內有<strong>巢狀的、可變的（mutable）參考型別</strong>（例如 <code>Team</code> 內有 <code>Manager</code> 物件，<code>Manager</code> 內又有其他物件），就需要遞迴地為每一層建立新實例。實務上，可使用序列化/反序列化（例如 <code>System.Text.Json</code>）或其他第三方函式庫來自動處理深層複製。</p>
+<blockquote class="blockquote">
+<p><strong>Note</strong></p>
+<p>有關「不可變」（immutable）的相關議題，詳見〈第 4 章：不可變設計〉。</p>
+</blockquote>
+<p>以下整理剛才介紹的幾種物件複製方法：</p>
+<ul>
+<li>實作 <code>ICloneable.Clone()</code>：不建議。缺點：語意不明確，不是強型別（回傳 <code>object</code>）。</li>
+<li>提供複製建構式：可明確控制複製邏輯，且具強型別，是普遍接受的實務做法。缺點是成員數量眾多時，程式碼較繁瑣。</li>
+<li><code>record</code> 型別搭配 <code>with</code>：很適合不可變資料與 non-destructive mutation，但它不是通用的深層複製機制。（第 4 章）</li>
+<li>序列化：最簡便，但效能可能較慢、需要注意私有成員是否遺漏。</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Ask AI</strong></p>
+<p>我想知道在 .NET 中的這幾種複製物件的方法有何優缺點：ICloneable、Record (with)、複製建構式、序列化。請整理一張比較表。</p>
+<p>然後，請用 .NET 內建的 <code>System.Text.Json</code> 實作物件的深層複製。</p>
+</blockquote>
+</section>
+<section id="陣列的淺層複製與深層複製" class="level3">
+<h3 class="anchored" data-anchor-id="陣列的淺層複製與深層複製">陣列的淺層複製與深層複製</h3>
+<p>陣列複製的原理與物件相同：<code>Array.Clone()</code> 執行的是<strong>淺層複製</strong>。</p>
+<p>如果陣列中的元素型別本身<strong>不含可變的參考狀態</strong>，例如 <code>int</code> 或 <code>string</code>，那麼淺層複製通常已經足夠。下面這個範例複製的是 <code>int[]</code>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb17-1"><a href="#cb17-1"></a><span class="dt">int</span><span class="op">[]</span> original <span class="op">=</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span> <span class="op">};</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="dt">int</span><span class="op">[]</span> copy <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">[])</span>original<span class="op">.</span><span class="fu">Clone</span><span class="op">();</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>copy<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="dv">999</span><span class="op">;</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>original<span class="op">[</span><span class="dv">0</span><span class="op">]);</span> <span class="co">// 輸出 1（不受影響）</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>不過要注意，這裡的前提是元素本身像 <code>int</code> 這樣直接就是值本體。如果陣列元素是某個 <code>struct</code>，而該 <code>struct</code> 內部又含有參考型別欄位，那麼 <code>Array.Clone()</code> 仍然只會淺層複製那些內部參考，不會自動幫你做到完全隔離。</p>
+<p>如果陣列元素是 reference type，則必須留意：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb18-1"><a href="#cb18-1"></a><span class="dt">var</span> original <span class="op">=</span> <span class="kw">new</span> StringBuilder<span class="op">[]</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="op">{</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>    <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span><span class="st">"A"</span><span class="op">),</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a>    <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span><span class="st">"B"</span><span class="op">)</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="op">};</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a></span>
+<span id="cb18-7"><a href="#cb18-7"></a><span class="dt">var</span> copy <span class="op">=</span> <span class="op">(</span>StringBuilder<span class="op">[])</span>original<span class="op">.</span><span class="fu">Clone</span><span class="op">();</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a>copy<span class="op">[</span><span class="dv">0</span><span class="op">].</span><span class="fu">Append</span><span class="op">(</span><span class="st">"!"</span><span class="op">);</span> <span class="co">// 修改 copy 會影響 original！</span></span>
+<span id="cb18-9"><a href="#cb18-9"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>original<span class="op">[</span><span class="dv">0</span><span class="op">]);</span> <span class="co">// 輸出 "A!"（受影響！）</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>輸出結果是 <code>A!</code>。<code>Array.Clone()</code> 雖然建立了一個新的陣列物件，但陣列內的元素仍然指向與 <code>original</code> 相同的 <code>StringBuilder</code> 物件，所以修改 <code>copy[0]</code> 的內容也會影響 <code>original[0]</code>。</p>
+<p>若要實現<strong>深層複製</strong>，必須逐一複製每個元素：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb19-1"><a href="#cb19-1"></a><span class="dt">var</span> original <span class="op">=</span> <span class="kw">new</span> StringBuilder<span class="op">[]</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="op">{</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>    <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span><span class="st">"A"</span><span class="op">),</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a>    <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span><span class="st">"B"</span><span class="op">)</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="op">};</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a></span>
+<span id="cb19-7"><a href="#cb19-7"></a><span class="dt">var</span> deepCopy <span class="op">=</span> <span class="kw">new</span> StringBuilder<span class="op">[</span>original<span class="op">.</span><span class="fu">Length</span><span class="op">];</span></span>
+<span id="cb19-8"><a href="#cb19-8"></a><span class="kw">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> original<span class="op">.</span><span class="fu">Length</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb19-9"><a href="#cb19-9"></a><span class="op">{</span></span>
+<span id="cb19-10"><a href="#cb19-10"></a>    deepCopy<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> <span class="kw">new</span> <span class="fu">StringBuilder</span><span class="op">(</span>original<span class="op">[</span>i<span class="op">].</span><span class="fu">ToString</span><span class="op">());</span></span>
+<span id="cb19-11"><a href="#cb19-11"></a><span class="op">}</span></span>
+<span id="cb19-12"><a href="#cb19-12"></a>deepCopy<span class="op">[</span><span class="dv">0</span><span class="op">].</span><span class="fu">Append</span><span class="op">(</span><span class="st">"!"</span><span class="op">);</span></span>
+<span id="cb19-13"><a href="#cb19-13"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>original<span class="op">[</span><span class="dv">0</span><span class="op">]);</span> <span class="co">// 輸出 "A"（不受影響）</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
+<p>這次輸出結果是 <code>A</code>，顯示 <code>deepCopy</code> 跟 <code>original</code> 是兩個不同的陣列。</p>
+<blockquote class="blockquote">
+<p><strong>原始碼：</strong> <a href="https://github.com/huanlin/csharp-book-support/tree/master/example-code-zh-tw/ch01/DemoDeepCopyArray">DemoDeepCopyArray</a></p>
+</blockquote>
+</section>
+</section>
+<section id="本章重點回顧" class="level2">
+<h2 class="anchored" data-anchor-id="本章重點回顧">本章重點回顧</h2>
+<ul>
+<li><strong>C# 設計哲學</strong>：OOP + FP 混合，強調型別安全，讓編譯器幫你避免潛在 bug。</li>
+<li><strong>執行機制</strong>：原始碼編譯為中介語言代碼（IL code），執行時由 CLR 透過 JIT 編譯為機器碼；CLR 亦負責垃圾回收（GC）。</li>
+<li><strong>Stack 與 Heap</strong>：Stack 存取快但空間有限，常用於方法呼叫脈絡與部分區域資料；heap 空間大，常見於物件實體，但實際配置仍會受 runtime / JIT 影響。</li>
+<li><strong>Value types vs Reference types</strong>：前者直接包含資料，後者儲存物件的參考（reference）；你可以把「參考」理解成用來找到物件的位置資訊。</li>
+<li><strong>陣列記憶體特性</strong>：Value type 陣列在記憶體中是連續的（效能佳）；Reference type 陣列則是儲存參考（可能增加 GC 壓力）。</li>
+<li><strong>Boxing/Unboxing</strong>：Boxing 是把 Value type 轉成 <code>object</code>；Unboxing 是把 boxed value 取回為原本的 Value type，兩者都可能帶來額外成本。</li>
+<li><strong>物件複製</strong>：C# 僅內建淺層複製。若需要深層複製，必須手動實作或透過序列化（如 <code>System.Text.Json</code>）達成。</li>
+</ul>
+</section>
+<section id="本章術語" class="level2">
+<h2 class="anchored" data-anchor-id="本章術語">本章術語</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">英文</th>
+<th style="text-align: left;">中文</th>
+<th style="text-align: left;">說明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BCL</td>
+<td style="text-align: left;">基礎類別庫</td>
+<td style="text-align: left;">Base Class Library，提供集合、I/O 等基礎功能</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Boxing</td>
+<td style="text-align: left;">裝箱</td>
+<td style="text-align: left;">將 value type 轉換為 <code>object</code> 的過程</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CLI (command line interface)</td>
+<td style="text-align: left;">命令列介面</td>
+<td style="text-align: left;">透過文字指令與電腦互動的介面</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CLR</td>
+<td style="text-align: left;">通用語言執行環境</td>
+<td style="text-align: left;">Common Language Runtime，負責 JIT 編譯與記憶體管理</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GC (garbage collector)</td>
+<td style="text-align: left;">垃圾回收器</td>
+<td style="text-align: left;">自動管理記憶體的機制</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Heap</td>
+<td style="text-align: left;">堆積</td>
+<td style="text-align: left;">執行期常見的物件配置區域，由 GC 管理</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IL (intermediate language)</td>
+<td style="text-align: left;">中介語言</td>
+<td style="text-align: left;">C# 編譯後的中間格式，與平台無關</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Immutable</td>
+<td style="text-align: left;">不可變</td>
+<td style="text-align: left;">物件建立後內容無法修改的特性（如 <code>string</code>）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">JIT (Just-In-Time compilation)</td>
+<td style="text-align: left;">即時編譯</td>
+<td style="text-align: left;">執行時將 IL 編譯成機器碼的過程</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reference type</td>
+<td style="text-align: left;">參考型別；參考類型</td>
+<td style="text-align: left;">儲存物件參考的型別（如 <code>class</code>、<code>string</code>）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Stack</td>
+<td style="text-align: left;">堆疊</td>
+<td style="text-align: left;">執行期常見的呼叫堆疊區域，通常與方法呼叫脈絡和部分區域資料有關</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="https://learn.microsoft.com/dotnet/csharp/tutorials/top-level-statements">Top-level statements</a></td>
+<td style="text-align: left;">頂層語句</td>
+<td style="text-align: left;">現代 C# 語法，可直接撰寫程式碼而不需定義 class</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Unboxing</td>
+<td style="text-align: left;">拆箱</td>
+<td style="text-align: left;">將 <code>object</code> 轉回 value type 的過程</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Value type</td>
+<td style="text-align: left;">實值型別；值類型</td>
+<td style="text-align: left;">直接包含資料的型別（如 <code>int</code>、<code>struct</code>）</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+
+(() => {
+
+  const path = window.location.pathname;
+
+  const match = path.match(/\/(zh-tw|en)(\/|$)/);
+
+  if (!match) {
+
+    return;
+
+  }
+
+
+
+  const current = match[1];
+
+  const target = current === "zh-tw" ? "en" : "zh-tw";
+
+  const label = current === "zh-tw" ? "🌐 English" : "🌐 繁體中文";
+
+  const href = path.replace(`/${current}`, `/${target}`) + window.location.search + window.location.hash;
+
+
+
+  const link = document.createElement("a");
+
+  link.className = "language-switch";
+
+  link.href = href;
+
+  link.textContent = label;
+
+  link.setAttribute("aria-label", current === "zh-tw" ? "Switch to English" : "切換至繁體中文");
+
+
+
+  const sidebarHeader = document.querySelector("#quarto-sidebar .sidebar-header");
+
+  if (sidebarHeader) {
+
+    const wrapper = document.createElement("div");
+
+    wrapper.className = "language-switch-wrapper";
+
+    wrapper.appendChild(link);
+
+    sidebarHeader.appendChild(wrapper);
+
+    return;
+
+  }
+
+
+
+  const header = document.querySelector(".quarto-secondary-nav .container-fluid");
+
+  const searchButton = header?.querySelector(".quarto-search-button");
+
+  if (header && searchButton) {
+
+    header.insertBefore(link, searchButton);
+
+  } else {
+
+    document.body.appendChild(link);
+
+  }
+
+})();
+
+</script>
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已複製");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已複製");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../ch00/about-author.html" class="pagination-link" aria-label="關於作者">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">關於作者</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ch02/declarations-and-sugars.html" class="pagination-link" aria-label="第 2 章：宣告與語法糖">
+        <span class="nav-page-text"><span class="chapter-title">第 2 章：宣告與語法糖</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

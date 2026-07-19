@@ -1,0 +1,62 @@
+/* ========== HTML 專用版面設定 ========== */
+body {
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-rows-contents {
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ========== Sidebar 導覽項目間距與對齊（只影響 HTML）========== */
+.sidebar-navigation .sidebar-item a {
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    text-align: left;
+}
+
+.language-switch {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.25rem 0.65rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    background: var(--bs-body-bg, #fff);
+    color: var(--bs-body-color, #212529);
+    font-size: 0.875rem;
+    line-height: 1.2;
+    text-decoration: none;
+    box-shadow: 0 0.125rem 0.35rem rgba(0, 0, 0, 0.08);
+}
+
+.quarto-secondary-nav .language-switch {
+    margin-left: 0.5rem;
+}
+
+.language-switch-wrapper {
+    margin-top: 0.75rem;
+}
+
+.language-switch:hover,
+.language-switch:focus {
+    color: var(--bs-link-color, #0d6efd);
+    text-decoration: none;
+}
+
+@media (max-width: 575.98px) {
+    .language-switch {
+        font-size: 0.8125rem;
+        min-height: 1.85rem;
+        padding-left: 0.45rem;
+        padding-right: 0.45rem;
+    }
+}
+
+/* 覆蓋 Bootstrap 的 h2 第一個子元素 margin-top: 0 */
+main.content > section:first-of-type > h2:nth-child(1) {
+    margin-top: 2em;
+}

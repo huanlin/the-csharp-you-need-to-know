@@ -74,7 +74,7 @@
     "href": "ch00/about-author.html",
     "title": "About the author",
     "section": "",
-    "text": "Michael Tsai\nMichael Tsai has more than a decade of experience in software development and technical writing, and has been recognized as a Microsoft Most Valuable Professional (MVP) in .NET for 20 consecutive years.\nAuthor of Modern C#: Developer’s Craft in the AI Era (2026) and .NET Dependency Injection (written in Traditional Chinese, 2018).\nTranslator of Brownfield Application Development in .NET (Traditional Chinese edition, 2010).",
+    "text": "Michael Tsai\nMichael Tsai has long worked in software development and technical writing and has been recognized as a Microsoft Most Valuable Professional (MVP) in .NET for 21 consecutive years.\nHe is the author of Concurrency in .NET 10, Modern C#: Developer’s Craft in the AI Era, and .NET Dependency Injection, among others.\nA complete list of his books is available on his website: https://huanlin.cc/about/.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>About the author</span>"
     ]

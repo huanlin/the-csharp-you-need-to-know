@@ -237,11 +237,9 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>蔡煥麟（Michael Tsai）</p>
-<p>從事軟體開發與技術寫作十餘年，連續 20 年的微軟最有價值專家（Microsoft .NET MVP）。</p>
-<p>著作：《C# 本事》、《.NET 本事：非同步程式設計》、《.NET 相依性注入》</p>
-<p>譯作：《軟體構築美學》、《物件導向分析設計與應用》</p>
-<p>部落格：<a href="https://www.huanlintalk.com" class="uri">https://www.huanlintalk.com</a></p>
-<p>Facebook：<a href="https://www.facebook.com/huanlin.notes" class="uri">https://www.facebook.com/huanlin.notes</a></p>
+<p>長期從事軟體開發與技術寫作，並連續 21 年獲選為微軟最有價值專家（Microsoft .NET MVP）。</p>
+<p>著有《深入淺出 .NET 10 併發程式設計》、《現代 C#》、《.NET 相依性注入》等。</p>
+<p>完整著作詳列於作者個人網站：<a href="https://huanlin.cc/about/" class="uri">https://huanlin.cc/about/</a>。</p>
 
 
 
@@ -720,6 +718,35 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "huanlin/the-csharp-you-need-to-know";
+    script.dataset.repoId = "R_kgDOTcTL7Q";
+    script.dataset.category = "General";
+    script.dataset.categoryId = "DIC_kwDOTcTL7c4DBpWN";
+    script.dataset.mapping = "pathname";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "bottom";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "zh-TW";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../ch00/about-book.html" class="pagination-link" aria-label="關於本書">

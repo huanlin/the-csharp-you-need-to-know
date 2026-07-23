@@ -1,4 +1,27 @@
 /* ========== HTML 專用版面設定 ========== */
+/* 僅補齊程式碼中的繁中文字形；英數仍由等寬字型顯示。 */
+@font-face {
+    font-family: "CJK Code Fallback";
+    src: local("Noto Sans Mono CJK TC"), local("PingFang TC"), local("Microsoft JhengHei");
+    unicode-range:
+        U+2E80-2EFF,
+        U+2F00-2FDF,
+        U+3000-303F,
+        U+3100-312F,
+        U+31A0-31BF,
+        U+3400-4DBF,
+        U+4E00-9FFF,
+        U+F900-FAFF,
+        U+FE30-FE4F,
+        U+FF00-FFEF;
+}
+
+:not(pre) > code {
+    font-family: "CJK Code Fallback", "Source Code Pro", ui-monospace,
+        "Cascadia Mono", "SFMono-Regular", Menlo, Monaco, Consolas,
+        "Liberation Mono", monospace;
+}
+
 body {
     max-width: 1600px;
     margin-left: auto;

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Chapter 1: Modern environment and fundamentals – The C# You Need to Know (beta)</title>
+<title>Chapter 1: Fundamentals – The C# You Need to Know (beta)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ch01/fundamentals.html"><span class="chapter-title">1 Modern environment and fundamentals</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ch01/fundamentals.html"><span class="chapter-title">1 Fundamentals</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -167,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ch01/fundamentals.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1 Modern environment and fundamentals</span></a>
+  <a href="../ch01/fundamentals.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1 Fundamentals</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -294,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Chapter 1: Modern environment and fundamentals</span></h1>
+<h1 class="title"><span class="chapter-title">Chapter 1: Fundamentals</span></h1>
 </div>
 
 
@@ -471,10 +471,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The <strong>CLR (Common Language Runtime)</strong> is the heart of .NET. It’s responsible for:</p>
 <ul>
 <li>Compiling IL into machine code (JIT compilation)</li>
-<li>Automatic memory management (garbage collection)</li>
+<li>Automatic memory management through the garbage collector (GC)</li>
 <li>Type-safety checks</li>
 <li>Exception handling</li>
 </ul>
+<p>The GC tracks the objects a program can still access and reclaims the memory occupied by objects that are no longer reachable. Reclaiming memory takes time; the more objects a program allocates in a short period, the more frequently the GC typically needs to run. This additional overhead is called <strong>GC pressure</strong>.</p>
 <p>The <strong>BCL (Base Class Library)</strong> provides the essential building blocks you’ll use constantly:</p>
 <ul>
 <li>Collections (<code>List&lt;T&gt;</code>, <code>Dictionary&lt;TKey,TValue&gt;</code>)</li>

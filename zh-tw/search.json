@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "The C# You Need to Know (beta)",
     "section": "",
-    "text": "《The C# You Need to Know》是《現代 C#》的第二版，書名的改變是為了反映本書的新定位。\n這裡免費公開本書部分章節的全文，試讀範圍比電子書銷售平台更廣，而且會不定期增加免費章節（例如配合 C# 新版本發布）。如欲閱讀全書，請購買正式版。\nTable of contents\n\n關於本書\n關於作者\n第 1 章：現代環境與基礎 (免費)\n第 2 章：宣告與語法糖 (免費)\n第 3 章：空值安全 (免費)\n第 4 章：不可變設計\n第 5 章：錯誤處理與資源管理\n第 6 章：模式比對\n第 7 章：泛型 (免費)\n第 8 章：委派與 Lambda 運算式\n第 9 章：事件與發布／訂閱模式\n第 10 章：LINQ 與函數式程式設計\n第 11 章：擴充方法 (免費)\n第 12 章：非同步程式設計\n第 13 章：高效能記憶體操作\n\n作者作品頁 作者網站",
+    "text": "《The C# You Need to Know》是《現代 C#》的第二版，書名的改變是為了反映本書的新定位。\n這裡免費公開本書部分章節的全文，試讀範圍比電子書銷售平台更廣，而且會不定期增加免費章節（例如配合 C# 新版本發布）。如欲閱讀全書，請購買正式版。\nTable of contents\n\n關於本書\n關於作者\n第 1 章：基礎 (免費)\n第 2 章：宣告與語法糖 (免費)\n第 3 章：空值安全 (免費)\n第 4 章：不可變設計\n第 5 章：錯誤處理與資源管理\n第 6 章：模式比對\n第 7 章：泛型 (免費)\n第 8 章：委派與 Lambda 運算式\n第 9 章：事件與發布／訂閱模式\n第 10 章：LINQ 與函數式程式設計\n第 11 章：擴充方法 (免費)\n第 12 章：非同步程式設計\n第 13 章：高效能記憶體操作\n\n作者作品頁 作者網站",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>首頁</span>"
     ]
@@ -64,7 +64,7 @@
     "href": "ch00/about-book.html#本書用到的工具",
     "title": "關於本書",
     "section": "本書用到的工具",
-    "text": "本書用到的工具\n為了能夠跟著本書實作練習，你需要準備：\n\n.NET 10 SDK 或更新版本\n開發工具：Visual Studio 2026（或 VS Code、Rider 等）\n\n詳細的安裝步驟與工具選擇建議，請參閱〈第 1 章：現代環境與基礎〉的 1.2 節。",
+    "text": "本書用到的工具\n為了能夠跟著本書實作練習，你需要準備：\n\n.NET 10 SDK 或更新版本\n開發工具：Visual Studio 2026（或 VS Code、Rider 等）\n\n詳細的安裝步驟與工具選擇建議，請參閱〈第 1 章：基礎〉的 1.2 節。",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>關於本書</span>"
     ]
@@ -92,101 +92,101 @@
   {
     "objectID": "ch01/fundamentals.html",
     "href": "ch01/fundamentals.html",
-    "title": "第 1 章：現代環境與基礎",
+    "title": "第 1 章：基礎",
     "section": "",
     "text": "1.1 C# 的設計哲學\n本章會先介紹基本的開發環境，再探討 .NET 執行環境與 C# 型別系統的核心運作原理。這裡不談簡單的 if/else 和迴圈，而是直接切入後續學習 C# 進階特性所需的基礎觀念。\nC# 是物件導向（object-oriented）語言，強調封裝、繼承和多型。但從 C# 3.0 開始，它大量引入了函數式程式設計（functional programming）的精華：\n這就是 OOP + FP 混合設計：C# 兼具了物件導向的組織力與函數式的表達力。本書後續介紹的 record、pattern matching 和 LINQ，都源自這個哲學。\n接著來看它的型別系統。",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：現代環境與基礎</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：基礎</span>"
     ]
   },
   {
     "objectID": "ch01/fundamentals.html#c-的設計哲學",
     "href": "ch01/fundamentals.html#c-的設計哲學",
-    "title": "第 1 章：現代環境與基礎",
+    "title": "第 1 章：基礎",
     "section": "",
     "text": "函數式特性\nC# 中的實作\n\n\n\n\n函式可作為值傳遞\n委派（delegate）與 lambda 運算式\n\n\n宣告式資料處理\nLINQ 查詢運算式\n\n\n不可變性\nrecord、readonly struct、init 存取子\n\n\nPattern matching\nswitch 運算式、is 運算子\n\n\n\n\n\n名詞釋疑\n在程式語言中，expression（運算式）通常指的是「可以被計算（evaluate）並回傳一個值的程式碼片段」。另一方面，statement（陳述式）則是執行一個動作，通常不直接傳回值。\n\n\n\n型別安全：編譯器是你的第一道防線\nC# 是一門強型別（strongly typed）語言，型別規則非常嚴格：\n\n靜態型別（static typing）：變數的型別在編譯時期就已確定，編譯器會在程式執行前檢查型別錯誤。\n強型別（strong typing）：不允許隱含的危險型別轉換。例如，你不能把 double 直接賦值給 int，必須明確轉型。\n\n這樣不僅能提早發現錯誤，也能降低執行時期出錯的機率。現代 C# 的許多功能（如 Nullable Reference Types）都在強化這張安全網。\n下面這段程式碼示範了 C# 如何阻止可能遺失資訊的隱含轉型：\n// 編譯器會阻止這種危險操作\ndouble pi = 3.14159;\nint rounded = pi;  // ✗ 編譯錯誤：無法隱含轉換\n\nint rounded2 = (int)pi;  // ✓ 明確轉型，開發者知道會無條件捨去小數\n在這個例子裡，編譯器不是禁止你轉型，而是要求你把「可能遺失資訊」這件事寫清楚。這種設計讓危險操作不會在程式碼裡悄悄發生。\n也就是說：讓編譯器幫你減少潛在 bugs。從型別安全、null 安全、pattern matching 到 record 的值相等性，每一項功能都在減少執行時期的意外。",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：現代環境與基礎</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：基礎</span>"
     ]
   },
   {
     "objectID": "ch01/fundamentals.html#sec-1-2",
     "href": "ch01/fundamentals.html#sec-1-2",
-    "title": "第 1 章：現代環境與基礎",
+    "title": "第 1 章：基礎",
     "section": "1.2 快速上手",
     "text": "1.2 快速上手\n本節會建立一個最簡單的 .NET 專案，並觀察它如何編譯與執行。我們先使用命令列介面（CLI），藉此理解 .NET 專案結構與建置流程（build pipeline）。\n\n必備工具\n在開始之前，請先安裝以下工具：\n\n.NET 10 SDK（或更新版本）：開發 .NET 應用程式必備。\n開發工具（IDE、編輯器），選擇你覺得合用的：\n\nVisual Studio 2026 Community：Windows 平台最強大的 IDE，適合大型專案與企業級開發。\nVisual Studio Code：跨平台（Windows、macOS、Linux）、輕量且生態系豐富的編輯器，適合喜歡快速編輯與自訂 workflow 的開發者。\nJetBrains Rider：跨平台（Windows、macOS、Linux）的整合開發工具，非商業用途可免費使用。\n\n\n\n\n你的第一個 .NET 專案\n請暫且忘掉 File &gt; New Project 這類滑鼠操作，打開終端機（底下指令以 Windows 環境為例），按照以下步驟操作：\nStep 1：建立 Console 應用程式\ndotnet new console --name HelloCSharp\n這會以預設的 Console 專案範本建立一個名為「HelloCSharp」的 C# 專案，專案裡面會有一個預設的主程式，檔案名稱是 Program.cs，裡面只有一行程式碼（註解不算）：\n// See https://aka.ms/new-console-template for more information\nConsole.WriteLine(\"Hello, World!\");\nStep 2：進入專案目錄\ncd HelloCSharp\nStep 3：執行程式\ndotnet run\n當你輸入 dotnet run 時，.NET SDK 會自動還原套件（restore）、編譯（build），然後執行應用程式。接著，你會看到終端機輸出：\nHello, World!\n雖然你剛才實際輸入的 .NET CLI 命令只有 dotnet new 和 dotnet run（cd 不算），但整個流程包含三個階段：\n\ndotnet new：根據範本產生專案檔（.csproj）和程式檔（Program.cs）。\ndotnet build：將 C# 原始碼編譯成中介語言（IL）並打包成 .dll 或 .exe。\ndotnet run：啟動 .NET Runtime（Common Language Runtime，CLR）執行編譯好的程式。\n\n\n\n\n\n\n\n什麼是 IL（Intermediate Language）？\nC# 程式碼不會直接編譯成機器碼，而是先編譯成一種稱為 IL（Intermediate Language，中介語言）的中間格式。IL 是一種與平台無關的指令集，讓同一份編譯後的程式可以在 Windows、macOS、Linux 等不同作業系統上執行。當程式執行時，.NET Runtime（CLR）會將 IL 即時編譯（JIT, Just-In-Time compilation）成該作業系統的機器碼。詳細資訊請參閱微軟官方文件。\n\n如果你想試試用整合開發環境（IDE）來編寫和執行剛才的範例程式，可參考微軟的線上教學文件：使用 Visual Studio 建立 .NET 控制台應用程式。\n\nNote\n現代 C# 專案通常啟用「頂層語句（top-level statements）」，這就是為什麼你在 Program.cs 中看不到舊版 C# 的寫法，如 class Program 或 static void Main，而只有簡潔的一行 Console.WriteLine(\"Hello, World!\");。",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：現代環境與基礎</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：基礎</span>"
     ]
   },
   {
     "objectID": "ch01/fundamentals.html#net-執行環境架構",
     "href": "ch01/fundamentals.html#net-執行環境架構",
-    "title": "第 1 章：現代環境與基礎",
+    "title": "第 1 章：基礎",
     "section": "1.3 .NET 執行環境架構",
-    "text": "1.3 .NET 執行環境架構\n當你輸入 dotnet run 指令，看到程式跑起來的那一刻，背後其實是一整套分工精細的系統在協同運作。.NET 平台採用分層設計，兼顧高階框架的便利與底層效能的掌控。\n具體來說，.NET 執行環境可拆解為三個核心層次：\n\n\n\n\n\n\n\n\n層次\n名稱\n功能\n\n\n\n\n最上層\nApplication Layer\n應用程式框架（ASP.NET、MAUI、WinUI 等）\n\n\n中間層\nBCL\n基礎類別庫（集合、I/O、網路、加密等）\n\n\n最底層\nCLR\n通用語言執行環境（記憶體管理、JIT 編譯、例外處理）\n\n\n\n\n\n\n\n\nCLR（Common Language Runtime） 是整個 .NET 的心臟，負責：\n\n將 IL 編譯成機器碼（JIT 編譯）\n自動記憶體管理（垃圾回收）\n型別安全檢查\n例外處理\n\nBCL（Base Class Library） 提供開發者日常需要的基礎功能：\n\n集合（List&lt;T&gt;、Dictionary&lt;TKey,TValue&gt;）\n字串處理、正規運算式（regular expressions）\n檔案 I/O、網路\n非同步程式設計（async/await）\n\nApplication Layer 則是針對特定應用場景的框架：\n\nASP.NET Core：Web 應用程式與 API\nMAUI：跨平台行動裝置與桌面應用\nWinUI / WPF：Windows 桌面應用\n\n理解這幾個層次後，就比較容易看懂同一份 C# 程式碼為什麼能在不同環境中執行。\n\n跨平台支援\n現代 .NET（從 .NET 5 開始）支援多種平台：\n\n\n\n執行平台\n支援的應用類型\n\n\n\n\nWindows\nConsole、Web、桌面（WPF/WinUI）、服務\n\n\nmacOS\nConsole、Web、桌面（Mac Catalyst）\n\n\nLinux\nConsole、Web、服務\n\n\niOS / Android\n行動應用（透過 MAUI）\n\n\n瀏覽器\nWebAssembly（透過 Blazor）\n\n\n\n這意味著你用 C# 寫的程式碼，只要不依賴特定平台的 API，就可以在這些平台上執行。\n從執行環境往下看，下一個會直接影響程式行為與效能的基礎，就是記憶體如何配置。",
+    "text": "1.3 .NET 執行環境架構\n當你輸入 dotnet run 指令，看到程式跑起來的那一刻，背後其實是一整套分工精細的系統在協同運作。.NET 平台採用分層設計，兼顧高階框架的便利與底層效能的掌控。\n具體來說，.NET 執行環境可拆解為三個核心層次：\n\n\n\n\n\n\n\n\n層次\n名稱\n功能\n\n\n\n\n最上層\nApplication Layer\n應用程式框架（ASP.NET、MAUI、WinUI 等）\n\n\n中間層\nBCL\n基礎類別庫（集合、I/O、網路、加密等）\n\n\n最底層\nCLR\n通用語言執行環境（記憶體管理、JIT 編譯、例外處理）\n\n\n\n\n\n\n\n\nCLR（Common Language Runtime） 是整個 .NET 的心臟，負責：\n\n將 IL 編譯成機器碼（JIT 編譯）\n透過垃圾回收器（garbage collector, GC）自動管理記憶體\n型別安全檢查\n例外處理\n\nGC 會追蹤程式仍可存取的物件，並回收那些已經無法再存取的物件所占用的記憶體。回收記憶體需要時間；短時間內配置的物件越多，GC 通常就得更頻繁地工作，這種額外負擔稱為「GC 壓力」。\nBCL（Base Class Library） 提供開發者日常需要的基礎功能：\n\n集合（List&lt;T&gt;、Dictionary&lt;TKey,TValue&gt;）\n字串處理、正規運算式（regular expressions）\n檔案 I/O、網路\n非同步程式設計（async/await）\n\nApplication Layer 則是針對特定應用場景的框架：\n\nASP.NET Core：Web 應用程式與 API\nMAUI：跨平台行動裝置與桌面應用\nWinUI / WPF：Windows 桌面應用\n\n理解這幾個層次後，就比較容易看懂同一份 C# 程式碼為什麼能在不同環境中執行。\n\n跨平台支援\n現代 .NET（從 .NET 5 開始）支援多種平台：\n\n\n\n執行平台\n支援的應用類型\n\n\n\n\nWindows\nConsole、Web、桌面（WPF/WinUI）、服務\n\n\nmacOS\nConsole、Web、桌面（Mac Catalyst）\n\n\nLinux\nConsole、Web、服務\n\n\niOS / Android\n行動應用（透過 MAUI）\n\n\n瀏覽器\nWebAssembly（透過 Blazor）\n\n\n\n這意味著你用 C# 寫的程式碼，只要不依賴特定平台的 API，就可以在這些平台上執行。\n從執行環境往下看，下一個會直接影響程式行為與效能的基礎，就是記憶體如何配置。",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：現代環境與基礎</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：基礎</span>"
     ]
   },
   {
     "objectID": "ch01/fundamentals.html#堆疊與堆積",
     "href": "ch01/fundamentals.html#堆疊與堆積",
-    "title": "第 1 章：現代環境與基礎",
+    "title": "第 1 章：基礎",
     "section": "1.4 堆疊與堆積",
     "text": "1.4 堆疊與堆積\n要寫出高效能且少 bug 的程式，得先認識記憶體配置。最基礎的兩個概念是 堆疊（stack） 和 堆積（heap）。\n為了方便理解，我們可以這樣想像：\n\nStack（堆疊）像是你的辦公桌：\n\n空間有限，但存取速度極快（伸手就拿得到）。\n用來處理當下正在進行的工作（函式呼叫、區域變數）。\n當工作結束（函式執行完畢），桌上的東西就會立刻被清空，準備處理下一件工作。\n\nHeap（堆積）像是公司的倉庫：\n\n空間很大，但存取速度較慢（要走去倉庫找）。\n用來存放長期保存的資料或大型物件。\n當你不再需要某個物品時，不會立刻消失，而是等待清潔人員（garbage collector）在適當時機回收清理。\n\n\n\n\n\n\n\n堆疊和堆積都是電腦當中的記憶體區塊，只是按照用途和特性給予不同的名稱而已。以下分別說明。\n\n堆疊（stack）\n\n特性：\n\n極快：配置與釋放只需移動指標。\n確定性：變數離開作用域（scope）即自動釋放。\n空間小：通常只有 1～4 MB（視平台與設定而定），用盡會導致 StackOverflowException。最常見的原因是無限遞迴（infinite recursion）或遞迴層次過深。\n\n存放內容：\n\n方法呼叫的執行脈絡（參數、回傳位址等）。\n某些與目前呼叫相關的區域資料；實際配置位置也可能受 JIT 最佳化影響。\n\n\n\n\n堆積（heap）\n\n特性：\n\n成本較高：配置與釋放的成本均高於 stack；釋放依賴垃圾回收器（garbage collector, GC）不定期批次回收，而非每次物件不再被使用時立刻清理——這是為了避免頻繁清理帶來的效能負擔。\n靈活：空間大，適合存放生命週期較長或大小不定的資料。\n\n存放內容：\n\n較大或生命週期較長的資料、物件（objects）與集合（collections）等。",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：現代環境與基礎</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：基礎</span>"
     ]
   },
   {
     "objectID": "ch01/fundamentals.html#實值型別與參考型別",
     "href": "ch01/fundamentals.html#實值型別與參考型別",
-    "title": "第 1 章：現代環境與基礎",
+    "title": "第 1 章：基礎",
     "section": "1.5 實值型別與參考型別",
     "text": "1.5 實值型別與參考型別\n前面提過，C# 程式執行於 CLR（Common Language Runtime） 之上。CLR 的任務很多，包括管理記憶體、處理例外、提供安全機制等等。不過，你不需要立刻了解 CLR 的內部運作和所有功能，只要先知道它肩負以下兩個重要工作：\n\n管理型別資訊\n配置與回收記憶體（垃圾回收）\n\n在記憶體配置的部分，CLR 會根據型別特性、使用情境，以及執行時期最佳化來決定資料的實際配置方式。實值型別（value types） 和 參考型別（reference types） 是理解這件事的重要切入點，但它們並不是判斷資料一定落在 stack 或 heap 的唯一依據。\n\n\n\n\n\n\n實值型別（Value Types）\n實值型別有這些：\n\n所有數值型別（int、double、byte、decimal…）\nbool、char\nenum（列舉）\nstruct（結構），包含 DateTime、Guid、Span&lt;T&gt;\n\n\nNote: Span&lt;T&gt; 是一個 ref struct。這是一種 stack-only 的特殊 struct：Span&lt;T&gt; 這個值本身不能逃逸到 heap，因此不能被裝箱（box）、也不能作為 class 的欄位。不過，它所表示的資料則可能在 stack 上，也可能在 heap 上。本書〈第 13 章：高效能記憶體操作〉的 13.2 節有更詳細的介紹。\n\n以下是它們的行為特性：\n\n直接包含資料。\n指派給另一個變數時，會複製整個值（copy by value）。\n\n你可以把這想像成影印文件：當你把文件 A 影印一份給同事（變數賦值），同事在影本上塗寫（修改變數），並不會影響你原本的那份文件。\n以下範例展示了實值型別的特性，即指派時會複製值本身：\nint a = 10;\nint b = a;  // 複製一份 10 給 b\nb = 99;     // 修改 b 不會影響 a\nConsole.WriteLine(a); // 輸出 10\n第 3 行修改 b 的值並不會改變 a 的值，因為 int 是實值型別。\n\n原始碼： DemoValueTypes\n\n\n\n參考型別（Reference Types）\n以下都是參考型別：\n\nclass（包含 string, object, 陣列如 int[]）\ninterface\ndelegate（第 8 章會介紹委派與 Lambda，並在第 9 章介紹事件）\nrecord（預設為參考型別，詳見本書第 4 章）\n\n\nNote\nstring 雖然是參考型別，但因為它是不可變的（immutable），所以實際使用時，會呈現類似實值型別的效果。不過在型別分類上，它仍然屬於參考型別。\n\n行為特性：\n\n儲存參考（reference），你可以把它想成用來找到 heap 上物件的位置資訊。\n指派給變數時，只複製參考，兩個變數可指向同一個物件。\n\n這好比分享雲端文件連結：你把文件的連結傳給同事（變數賦值），你們兩個人手上拿的都只是連結（reference），但連結到的都是同一份雲端文件（object）。當同事透過連結修改了文件內容，你打開連結時也會看到修改後的結果。\n\n\n\n\n\n換成參考型別時，指派的效果就不同了。以下範例中，user2 取得的是同一個物件的參考：\nvar user1 = new User { Name = \"Alice\" };\nvar user2 = user1;   // 複製參考，user1 和 user2 指向同一個物件\nuser2.Name = \"Bob\";  // 修改 user2 會影響 user1\nConsole.WriteLine(user1.Name); // 輸出 Bob\n因此，透過 user2 修改 Name 時，user1 看到的也是同一個物件被修改後的狀態。\n\n原始碼： DemoReferenceTypes\n\n\n\nAsk AI：那些容易搞混的型別\n很多 bugs 都源自對型別分類的誤解（面試考題也常問）。你可以把這段提示詞丟給 AI 測試觀念：\n\nPrompt\n在 C# 中，int[]（整數陣列）是 value type 還是 reference type？如果是 reference type，但它裡面裝的又是 int（value type），那這些 int 是存在 stack 還是 heap？請解釋底層記憶體配置。\n\n依你使用的 AI 工具而定，每次得到的答案可能有些差異。以下是 AI 回答的參考範例（經過簡化）：\n\nAI 回答\nint[] 本身是陣列，屬於 Reference Type。因此，整個陣列物件（包含它裡面的所有 int 元素）都儲存在 Heap 上，即使 int 本身是 Value Type。\n\n\n\n陣列的記憶體配置：元素型別的差異\n許多開發者以為陣列就是「連續的記憶體空間」，但這個觀念只對了一半。\n事實上，陣列的底層記憶體配置方式，會因為元素是實值型別還是參考型別而有顯著差異。這個差異會影響程式的執行效能（CPU cache 命中率）與垃圾回收（GC）的負擔。接著從記憶體配置的觀點來看兩者有什麼不同。\n\nValue Type 元素陣列\n以底下的範例來說：\nlong[] numbers = new long[3]; // 每個 long 是 8 bytes\nnumbers[0] = 12345;\nnumbers[1] = 54321;\nnumbers[2] = 99999;\n在 heap 上，CLR 會配置一塊連續的記憶體空間，三個 long 值直接儲存在陣列中。具體來說：\n\n陣列結構：包含陣列長度等標頭資訊。\n內容：直接存放數值本身（如 12345），緊密排列。\n結果：一次記憶體配置，資料集中，效率高。\n\n打個比方，就像是健身房的一整排置物櫃：你打開第 0 號櫃子，裡面直接放著你的東西（數值）；打開第 1 號櫃子，裡面也直接放著東西。存取非常快速且直接。\n\n\nReference Type 元素陣列\n接著看元素型別是 StringBuilder 的陣列：\nStringBuilder[] builders = new StringBuilder[3];\nbuilders[0] = new StringBuilder(\"builder1\");\nbuilders[1] = new StringBuilder(\"builder2\");\nbuilders[2] = new StringBuilder(\"builder3\");\n在這種情況下，陣列中不是直接存放物件本身，而是存放指向物件的參考。具體來說：\n\n陣列結構：包含陣列長度等標頭資訊。\n內容：存放的是指向 StringBuilder 物件的參考。\n實際物件：分散放在堆積（heap）裡。\n結果：多次記憶體配置（陣列一次 + 每個物件各一次），資料非連續，存取成本較高。\n\n如同一排信箱：打開第 0 號信箱，裡面只有一張紙條（參考），上面寫著「你的包裹在倉庫 B 區 3 號架」。你必須再跑去倉庫（heap 的其他位置）才能真正拿到包裹（物件）。如果每個信箱裡的紙條都指向倉庫的不同角落，你就得跑來跑去，這當然比較慢。\n這帶來兩個重要影響：\n\n記憶體區域性（locality）：value type 陣列的元素在記憶體中是連續存放，故 CPU 快取命中率高，存取效能更好。\nGC 壓力：reference type 陣列會產生多個散落物件，增加垃圾回收的負擔。\n\n\n\n\n\n\n\n本節重點整理：\n\n無論是實值型別還是參考型別，資料最終都必須有實際的儲存位置。\n方法呼叫相關資料與許多區域變數常由 stack frame 或暫存器承載，但這屬於 runtime / JIT 的實作細節。\n實值型別的重點是「直接包含資料」；它可能出現在區域變數、物件欄位、或陣列元素中，不一定只在堆疊（stack）上。\n參考型別變數的值是一個 reference；該 reference 所指向的物件通常配置於堆積（heap）上。",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：現代環境與基礎</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：基礎</span>"
     ]
   },
   {
     "objectID": "ch01/fundamentals.html#boxing-與-unboxing",
     "href": "ch01/fundamentals.html#boxing-與-unboxing",
-    "title": "第 1 章：現代環境與基礎",
+    "title": "第 1 章：基礎",
     "section": "1.6 Boxing 與 Unboxing",
     "text": "1.6 Boxing 與 Unboxing\nBoxing 和 unboxing 是為了讓實值型別（value types）也能當作物件處理的機制，但它有額外的效能成本。\n\nBoxing（裝箱）\n所謂的 boxing（裝箱）就是把一個 value type 轉換為 object（reference type）的過程。\n就好像你買了一顆蘋果（value type），原本是直接以「蘋果本體」來使用；但如果現在要把它當成一件可統一管理的「物件」送進倉庫（heap），你就必須把它裝進一個箱子（boxing），並且貼上標籤。這個「找箱子」和「打包」的過程，就是額外的成本。\nBoxing 過程發生了什麼事：CLR 會在 heap 上配置一塊記憶體，把 value type 的值複製進去。這個步驟是必要的，因為 object 是參考型別，需要在 heap 上有一個位址；而 int 等值型別本身沒有 heap 位址，所以必須先把它包裝成一個 heap 上的物件。\n先看一個最簡單的裝箱範例：\nint i = 123;\nobject o = i; // Boxing：將 int 封裝進 heap 上的 object\n這裡的 o 是一個參考，指向 heap 上新建立的 boxed int 物件。\n\n\nUnboxing（拆箱）\n跟 boxing（裝箱）相反，unboxing（拆箱）指的是將 object 轉回 value type 的過程。\nUnboxing 實際做的事情：檢查 object 裡面是否真的裝了該型別的值，如果是，便將裡面的值取出並複製到目標位置。\n拆箱時，必須明確指定要取回的實值型別：\nint j = (int)o; // Unboxing\n如果 o 裡面裝的不是 int，這行程式會在執行時期丟出例外。\n\n\n\n\n\n\n\n為什麼要在意？\nBoxing 有兩個成本：\n\nCPU 計算：複製資料與記憶體配置。\nGC 壓力：Boxing 會產生額外的 heap 物件，增加垃圾回收的工作量。\n\n隱性 boxing 陷阱常見於舊式集合（如 ArrayList）或格式化字串。ArrayList 因為將所有元素存為 object 型別，所以加入值型別時都會自動觸發裝箱。以下是一個常見的例子：\nint x = 10;\n// 陷阱：string.Format 接受 object 參數\nstring s = string.Format(\"Score: {0}\", x); // x 被 boxing!\n\n// 現代解法：字串插補（通常編譯器會優化）\nstring s2 = $\"Score: {x}\";\n\n原始碼： DemoBoxingUnboxing\n\n要提醒的是，「字串插補是否會造成 boxing」取決於編譯器版本與具體寫法；在現代 C#/.NET 中，多數常見情境（例如插補 int）通常不會再退回到 string.Format(object, ...) 那種會 boxing 的路徑，但仍可能產生字串配置（allocation）。\n如果你遇到的是「大量格式化輸出」的熱點（hot path），且要求高效能的場景，更可靠的做法通常是：\n\n盡量避免走到以 object 參數為主的 API（例如某些 params object[] 形式）。\n善用可寫入緩衝區的格式化 API（例如搭配 Span&lt;char&gt; 的 TryFormat），以減少暫時字串配置（詳見第 13 章）。\n如果是集合類型，優先採用 泛型（generics） 集合，例如用 List&lt;int&gt; 取代 ArrayList。\n\n\n\n字串插補（string interpolation）會在本書第 2 章介紹（第 2.7 節）。\n泛型（generics）在本書第 7 章。",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：現代環境與基礎</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：基礎</span>"
     ]
   },
   {
     "objectID": "ch01/fundamentals.html#物件與陣列的複製",
     "href": "ch01/fundamentals.html#物件與陣列的複製",
-    "title": "第 1 章：現代環境與基礎",
+    "title": "第 1 章：基礎",
     "section": "1.7 物件與陣列的複製",
     "text": "1.7 物件與陣列的複製\n複製物件或陣列時，得先搞懂淺層複製（shallow copy）和深層複製（deep copy）是怎麼運作的，因為 C# 沒有內建的深層複製機制。這個主題橫跨實值型別與參考型別，是記憶體管理的重要概念。\n\n物件的淺層複製與深層複製\n淺層複製只複製物件本身，裡面的參考型別欄位還是指向同一個物件：\nclass Team\n{\n    public string Name { get; set; } = string.Empty;\n    public List&lt;string&gt; Members { get; set; } = new();\n\n    // 使用 object.MemberwiseClone() 逐一複製成員（淺層複製）\n    public Team ShallowCopy() =&gt; (Team)MemberwiseClone();\n}\n\nvar team1 = new Team\n{\n    Name = \"Dev\",\n    Members = new List&lt;string&gt; { \"Alice\", \"Bob\" }\n};\n\nvar team2 = team1.ShallowCopy(); // 淺層複製\nteam2.Name = \"QA\";               // team2 有自己的 Name 副本\nteam2.Members.Add(\"Charlie\");    // 但 Members 仍指向同一個 List！\n\nConsole.WriteLine(team1.Members.Count); // 輸出 3（受影響！）\n此範例展示了淺層複製可能造成的潛在 bug：內層的參考物件只是複製參考，因此對 team2.Members 串列加入新元素時，等同於改動 team1.Members 串列。\n\n原始碼： DemoShallowCopy\n\n.NET 早期版本提供了 ICloneable 介面作為複製物件的標準做法：當類別需要提供複製操作時，只要實作該介面的 Clone() 方法即可。但此設計有個明顯缺點：Clone() 方法本身的語意不明確，它沒有明確規定是「淺層複製」還是「深層複製」。於是，當你呼叫一個第三方程式庫的 Clone()，往往需要去查文件來確認它到底是執行淺層複製，還是複製了整個物件樹。\n因此，實務上通常不建議把 ICloneable 當成公開 API 的複製契約；如果物件要提供複製功能，較好的做法是在類別裡面定義名稱明確的方法，例如 ShallowCopy 或 DeepCopy，就如前面範例所展示的。\n\nNote\n其他複製物件的方法還有複製建構式（copy constructor），以及使用 record 型別搭配 with 運算式來做 non-destructive mutation（詳見本書第 4 章）。請注意：with 預設仍是淺層複製；如果成員裡面有可變的巢狀參考型別，仍然可能共用同一份內部物件。\n\n如果要提供深層複製，就必須明確決定哪些成員需要建立新實例。以下範例示範的是以複製建構式（copy constructor）來實作深層複製。\nclass Team\n{\n    public string Name { get; set; } = string.Empty;\n    public List&lt;string&gt; Members { get; set; } = new();\n\n    public Team() { }\n\n    public Team(Team original)\n    {\n        // string 是 immutable，可直接複製參考。\n        Name = original.Name;\n\n        // 建立新的 List，避免與原物件共用同一個 Members 集合。\n        Members = new List&lt;string&gt;(original.Members);\n    }\n}\n\nvar team1 = new Team\n{\n    Name = \"Dev\",\n    Members = new List&lt;string&gt; { \"Alice\", \"Bob\" }\n};\n\nvar team2 = new Team(team1);  // 使用複製建構式來建立物件的副本\nteam2.Members.Add(\"Charlie\");\nConsole.WriteLine(team1.Members.Count); // 輸出 2（team1 不受影響）\n其中的這行程式碼會建立新的 List，避免與原物件共用同一個 Members 集合：\nMembers = new List&lt;string&gt;(original.Members);\n這裡由於元素是不可變的 string，故只需複製元素參考，不必另外複製字串物件。\n在這個範例中：\n\nName 屬性直接沿用原本的 string 參考，但不會造成問題。為什麼？因為 string 雖然是參考型別，但它是不可變（immutable）的——雖然寫法上看起來字串是可修改的，但其實任何對字串的修改操作（如 Replace、ToUpper）都會產生一個新的字串物件。相對地，Members 是 List&lt;string&gt;，屬於可變（mutable）的集合，必須建立新實例才能避免共用同一份資料。\n複製建構式（copy constructor）特別適合需要明確控制複製邏輯的類別。雖然名稱不像 ShallowCopy 或 DeepCopy 那樣明確，但它的好處是強型別（輸入參數和回傳值都是），而且是現代 .NET 實作物件複製的常見作法。\n\n\n原始碼： DemoDeepCopy\n\n請注意，new List&lt;string&gt;(original.Members) 這種寫法會建立一個新的串列容器。由於串列中的元素是不可變的 string，這樣就已足以達到此範例所需的隔離效果。如果串列包含的是可變的參考型別，例如 List&lt;Person&gt;，那麼 new List&lt;Person&gt;(original.Members) 其實只複製了串列容器本身，容器裡面的 Person 物件參考仍然指向原本的物件。在這種情況下，你必須逐一複製每個 Person 物件，才能達到真正的完全隔離。\n總之，記住這個原則：如果物件內有巢狀的、可變的（mutable）參考型別（例如 Team 內有 Manager 物件，Manager 內又有其他物件），就需要遞迴地為每一層建立新實例。實務上，可使用序列化/反序列化（例如 System.Text.Json）或其他第三方函式庫來自動處理深層複製。\n\nNote\n有關「不可變」（immutable）的相關議題，詳見〈第 4 章：不可變設計〉。\n\n以下整理剛才介紹的幾種物件複製方法：\n\n實作 ICloneable.Clone()：不建議。缺點：語意不明確，不是強型別（回傳 object）。\n提供複製建構式：可明確控制複製邏輯，且具強型別，是普遍接受的實務做法。缺點是成員數量眾多時，程式碼較繁瑣。\nrecord 型別搭配 with：很適合不可變資料與 non-destructive mutation，但它不是通用的深層複製機制。（第 4 章）\n序列化：最簡便，但效能可能較慢、需要注意私有成員是否遺漏。\n\n\nAsk AI\n我想知道在 .NET 中的這幾種複製物件的方法有何優缺點：ICloneable、Record (with)、複製建構式、序列化。請整理一張比較表。\n然後，請用 .NET 內建的 System.Text.Json 實作物件的深層複製。\n\n\n\n陣列的淺層複製與深層複製\n陣列複製的原理與物件相同：Array.Clone() 執行的是淺層複製。\n如果陣列中的元素型別本身不含可變的參考狀態，例如 int 或 string，那麼淺層複製通常已經足夠。下面這個範例複製的是 int[]：\nint[] original = { 1, 2, 3 };\nint[] copy = (int[])original.Clone();\ncopy[0] = 999;\nConsole.WriteLine(original[0]); // 輸出 1（不受影響）\n不過要注意，這裡的前提是元素本身像 int 這樣直接就是值本體。如果陣列元素是某個 struct，而該 struct 內部又含有參考型別欄位，那麼 Array.Clone() 仍然只會淺層複製那些內部參考，不會自動幫你做到完全隔離。\n如果陣列元素是 reference type，則必須留意：\nvar original = new StringBuilder[]\n{\n    new StringBuilder(\"A\"),\n    new StringBuilder(\"B\")\n};\n\nvar copy = (StringBuilder[])original.Clone();\ncopy[0].Append(\"!\"); // 修改 copy 會影響 original！\nConsole.WriteLine(original[0]); // 輸出 \"A!\"（受影響！）\n輸出結果是 A!。Array.Clone() 雖然建立了一個新的陣列物件，但陣列內的元素仍然指向與 original 相同的 StringBuilder 物件，所以修改 copy[0] 的內容也會影響 original[0]。\n若要實現深層複製，必須逐一複製每個元素：\nvar original = new StringBuilder[]\n{\n    new StringBuilder(\"A\"),\n    new StringBuilder(\"B\")\n};\n\nvar deepCopy = new StringBuilder[original.Length];\nfor (int i = 0; i &lt; original.Length; i++)\n{\n    deepCopy[i] = new StringBuilder(original[i].ToString());\n}\ndeepCopy[0].Append(\"!\");\nConsole.WriteLine(original[0]); // 輸出 \"A\"（不受影響）\n這次輸出結果是 A，顯示 deepCopy 跟 original 是兩個不同的陣列。\n\n原始碼： DemoDeepCopyArray",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：現代環境與基礎</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：基礎</span>"
     ]
   },
   {
     "objectID": "ch01/fundamentals.html#本章重點回顧",
     "href": "ch01/fundamentals.html#本章重點回顧",
-    "title": "第 1 章：現代環境與基礎",
+    "title": "第 1 章：基礎",
     "section": "本章重點回顧",
     "text": "本章重點回顧\n\nC# 設計哲學：OOP + FP 混合，強調型別安全，讓編譯器幫你避免潛在 bug。\n執行機制：原始碼編譯為中介語言代碼（IL code），執行時由 CLR 透過 JIT 編譯為機器碼；CLR 亦負責垃圾回收（GC）。\nStack 與 Heap：Stack 存取快但空間有限，常用於方法呼叫脈絡與部分區域資料；heap 空間大，常見於物件實體，但實際配置仍會受 runtime / JIT 影響。\nValue types vs Reference types：前者直接包含資料，後者儲存物件的參考（reference）；你可以把「參考」理解成用來找到物件的位置資訊。\n陣列記憶體特性：Value type 陣列在記憶體中是連續的（效能佳）；Reference type 陣列則是儲存參考（可能增加 GC 壓力）。\nBoxing/Unboxing：Boxing 是把 Value type 轉成 object；Unboxing 是把 boxed value 取回為原本的 Value type，兩者都可能帶來額外成本。\n物件複製：C# 僅內建淺層複製。若需要深層複製，必須手動實作或透過序列化（如 System.Text.Json）達成。",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：現代環境與基礎</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：基礎</span>"
     ]
   },
   {
     "objectID": "ch01/fundamentals.html#本章術語",
     "href": "ch01/fundamentals.html#本章術語",
-    "title": "第 1 章：現代環境與基礎",
+    "title": "第 1 章：基礎",
     "section": "本章術語",
     "text": "本章術語\n\n\n\n英文\n中文\n說明\n\n\n\n\nBCL\n基礎類別庫\nBase Class Library，提供集合、I/O 等基礎功能\n\n\nBoxing\n裝箱\n將 value type 轉換為 object 的過程\n\n\nCLI (command line interface)\n命令列介面\n透過文字指令與電腦互動的介面\n\n\nCLR\n通用語言執行環境\nCommon Language Runtime，負責 JIT 編譯與記憶體管理\n\n\nGC (garbage collector)\n垃圾回收器\n自動管理記憶體的機制\n\n\nHeap\n堆積\n執行期常見的物件配置區域，由 GC 管理\n\n\nIL (intermediate language)\n中介語言\nC# 編譯後的中間格式，與平台無關\n\n\nImmutable\n不可變\n物件建立後內容無法修改的特性（如 string）\n\n\nJIT (Just-In-Time compilation)\n即時編譯\n執行時將 IL 編譯成機器碼的過程\n\n\nReference type\n參考型別；參考類型\n儲存物件參考的型別（如 class、string）\n\n\nStack\n堆疊\n執行期常見的呼叫堆疊區域，通常與方法呼叫脈絡和部分區域資料有關\n\n\nTop-level statements\n頂層語句\n現代 C# 語法，可直接撰寫程式碼而不需定義 class\n\n\nUnboxing\n拆箱\n將 object 轉回 value type 的過程\n\n\nValue type\n實值型別；值類型\n直接包含資料的型別（如 int、struct）",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：現代環境與基礎</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>第 1 章：基礎</span>"
     ]
   },
   {

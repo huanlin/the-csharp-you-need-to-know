@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>第 1 章：現代環境與基礎 – The C# You Need to Know (beta)</title>
+<title>第 1 章：基礎 – The C# You Need to Know (beta)</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="切換側邊欄導航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ch01/fundamentals.html"><span class="chapter-title">第 1 章：現代環境與基礎</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ch01/fundamentals.html"><span class="chapter-title">第 1 章：基礎</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="切換側邊欄導航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="搜尋" onclick="window.quartoOpenSearch();">
@@ -167,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ch01/fundamentals.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">第 1 章：現代環境與基礎</span></a>
+  <a href="../ch01/fundamentals.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">第 1 章：基礎</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -294,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">第 1 章：現代環境與基礎</span></h1>
+<h1 class="title"><span class="chapter-title">第 1 章：基礎</span></h1>
 </div>
 
 
@@ -471,10 +471,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>CLR（Common Language Runtime）</strong> 是整個 .NET 的心臟，負責：</p>
 <ul>
 <li>將 IL 編譯成機器碼（JIT 編譯）</li>
-<li>自動記憶體管理（垃圾回收）</li>
+<li>透過垃圾回收器（garbage collector, GC）自動管理記憶體</li>
 <li>型別安全檢查</li>
 <li>例外處理</li>
 </ul>
+<p>GC 會追蹤程式仍可存取的物件，並回收那些已經無法再存取的物件所占用的記憶體。回收記憶體需要時間；短時間內配置的物件越多，GC 通常就得更頻繁地工作，這種額外負擔稱為「GC 壓力」。</p>
 <p><strong>BCL（Base Class Library）</strong> 提供開發者日常需要的基礎功能：</p>
 <ul>
 <li>集合（<code>List&lt;T&gt;</code>、<code>Dictionary&lt;TKey,TValue&gt;</code>）</li>

@@ -23,6 +23,11 @@ body {
     text-align: start;
 }
 
+/* 加深右側章節目錄中子節標題的縮排，強化標題層級。 */
+#quarto-margin-sidebar nav[role="doc-toc"] > ul > li > ul > li > a {
+    padding-left: 2em;
+}
+
 .language-switch {
     display: inline-flex;
     align-items: center;

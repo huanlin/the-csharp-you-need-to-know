@@ -408,9 +408,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-15"><a href="#cb4-15"></a>        <span class="kw">return</span> <span class="dt">char</span><span class="op">.</span><span class="fu">ToUpper</span><span class="op">(</span>s<span class="op">[</span><span class="dv">0</span><span class="op">])</span> <span class="op">+</span> s<span class="op">[</span><span class="dv">1</span><span class="op">..];</span></span>
 <span id="cb4-16"><a href="#cb4-16"></a>    <span class="op">}</span></span>
 <span id="cb4-17"><a href="#cb4-17"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Syntax Points:</strong></p>
+<p><strong>Key syntax rules:</strong></p>
 <ol type="1">
-<li><strong>Must be a static class</strong>: Extension methods can only be defined in static classes.</li>
+<li><strong>Must be declared in a top-level, nongeneric static class</strong>: Extension methods cannot be declared in a nested class.</li>
 <li><strong>Must be a static method</strong>: The method itself must also be <code>static</code>.</li>
 <li><strong><code>this</code> modifier on the first parameter</strong>: The compiler treats this type as the type the method intends to extend.</li>
 <li><strong>First parameter represents the target object</strong>: Automatically passed when called.</li>
@@ -670,7 +670,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb22-20"><a href="#cb22-20"></a>            <span class="op">=&gt;</span> left<span class="op">.</span><span class="fu">Concat</span><span class="op">(</span>right<span class="op">);</span></span>
 <span id="cb22-21"><a href="#cb22-21"></a>    <span class="op">}</span></span>
 <span id="cb22-22"><a href="#cb22-22"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Syntax Points:</p>
+<p>Syntax notes:</p>
 <ul>
 <li><code>extension&lt;TSource&gt;(IEnumerable&lt;TSource&gt;)</code> has no parameter name, indicating members inside the block are static.</li>
 <li>Members must add the <code>static</code> keyword.</li>

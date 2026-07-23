@@ -410,10 +410,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-17"><a href="#cb4-17"></a><span class="op">}</span></span></code></pre></div><button title="複製到剪貼簿" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>語法要點：</strong></p>
 <ol type="1">
-<li><strong>必須是靜態類別</strong>：擴充方法只能定義在靜態類別中</li>
-<li><strong>必須是靜態方法</strong>：方法本身也必須是 <code>static</code></li>
-<li><strong><code>this</code> 修飾第一個參數</strong>：編譯器將此型別視為該方法所欲擴充的類別</li>
-<li><strong>第一個參數代表目標物件</strong>：呼叫時會自動傳入</li>
+<li><strong>必須宣告在頂層、非泛型的靜態類別中</strong>：擴充方法不能宣告在巢狀類別中。</li>
+<li><strong>必須是靜態方法</strong>：方法本身也必須是 <code>static</code>。</li>
+<li><strong><code>this</code> 修飾第一個參數</strong>：編譯器將此型別視為該方法所欲擴充的類別。</li>
+<li><strong>第一個參數代表目標物件</strong>：呼叫時會自動傳入。</li>
 </ol>
 <p>也就是說，<code>this string s</code> 不是多一個呼叫端要傳入的參數，而是在告訴編譯器：「這個方法要掛到 <code>string</code> 上。」</p>
 <div class="quarto-figure quarto-figure-center">
